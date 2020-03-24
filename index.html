@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="jscolor.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+        <form id="setup">
+            <label for="numLeds">LED Count</label>
+            <input name="numLeds" type="number"/>
+            <button>Start</button>
+        </form>
+        <div id="led-container"></div>
+        <label for="color">Color</label>
+        <input class="jscolor" id="color" value="000000"/>
+        <div id="frame" class="info">Frame: 1 / 1</div>
+        <button id="prev-frame">Previous Frame</button>
+        <button id="next-frame">Next Frame</button>
+        <button id="new-frame">Add New Frame</button>
+        <button id="copy-last">Copy Last Frame</button>
+        <button id="delete-frame">Delete Frame</button>
+        <button id="shift-left">Shift Left</button>
+        <button id="shift-right">Shift Right</button>
+        <button id="export">EXPORT</button>
+        <div class="final-section">
+            <p>DMX Animation Code</p>
+            <textarea readonly id="exported-anim"></textarea>
+        </div>
+        <div>
+            <p>Specification</p>
+            <p>The prefix is a line that contains the number of leds for the animation and the number of animation frames.
+                <br> What follows is a byte array formed by the three color channels of each led, for each frame.
+            </p>
+        </div>
+    </body>
+</html>

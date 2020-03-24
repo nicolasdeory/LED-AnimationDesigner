@@ -1,0 +1,41 @@
+#led-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-top: 50px;
+}
+
+.led {
+    background-color: #000;
+    width: 7px;
+    height: 7px;
+    margin-left: 1px;
+}
+
+.led.small {
+    width: 5px;
+    height: 5px;
+}
+
+.led.selected {
+    transform: translateY(-2px);
+}
+
+.led.border {
+    box-shadow: inset 0 0 0 1px #000;
+}
+
+#color {
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.final-section {
+    margin-top: 50px;
+}
+
+#exported-anim {
+    width: 100%;
+    height: 300px;
+    max-width: 800px;
+}
