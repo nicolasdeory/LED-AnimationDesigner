@@ -36,6 +36,8 @@ $(document).ready(() => {
         }
         generated = true;
         changed = false;
+        selectedFrameIndex = 0;
+        selectedLEDIndex = 0;
         refreshFrameText();
     }
 
