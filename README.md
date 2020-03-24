@@ -25,7 +25,7 @@ The first line indicates the following information:
 - LED count
 - Frame count
 
-The following data is a byte array containing FRAME_COUNT * NUM_LEDS * 3 color channel bytes.
+The following data is a byte array containing FRAME_COUNT * NUM_LEDS * 3 color channel bytes (RGB order, starting by LED 0).
 A two-frame animation for a 5 LED strip will look like this:
 ```
 5,2
