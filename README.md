@@ -11,13 +11,13 @@ Press the left and right arrow keys to change the selected LED.
 Press the up and down arrow keys to change the current frame.
 
 ## Buttons
-- Next Frame / Previous Frame: Changes the selected animation frame.
-- Add New Frame: Adds an empty frame **after** the frame selected.
-- Copy Last Frame: Copies the color information from the selected frame and creates a new one.
-- Delete Frame: Deletes the selected frame.
-- Shift Left: Moves the led colors one to the left. The right-most led will turn black.
-- Shift Right: Moves the led colors one to the right. The left-most led will turn black.
-- EXPORT: Generates the animation code and displays it in the output textarea.
+- **Next Frame / Previous Frame**: Changes the selected animation frame.
+- **Add New Frame**: Adds an empty frame **after** the frame selected.
+- **Copy Last Frame**: Copies the color information from the selected frame and creates a new one.
+- **Delete Frame**: Deletes the selected frame.
+- **Shift Left**: Moves the led colors one to the left. The right-most led will turn black.
+- **Shift Right**: Moves the led colors one to the right. The left-most led will turn black.
+- **EXPORT**: Generates the animation code and displays it in the output textarea.
 
 ## Export Format
 The format is similar to a DMX color array.
