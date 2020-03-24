@@ -10,10 +10,11 @@ $(document).ready(() => {
 
     NUM_LEDS = 0;
     var generated = false;
+    var changed = false;
     $("#setup").on('submit', function(e) {
         NUM_LEDS = $("input[name='numLeds']").val();
        // $("#setup").remove();
-        if (!generated || confirm("Are you sure you want to create a new animation? Export your animation if you want to save your changes."))
+        if (!generated || !changed || confirm("Are you sure you want to create a new animation? Export your animation if you want to save your changes."))
             generateLEDS();
         return false;
     });
@@ -34,6 +35,8 @@ $(document).ready(() => {
             FRAMES[0].push(0); // 3 color channels
         }
         generated = true;
+        changed = false;
+        refreshFrameText();
     }
 
     var FRAMES = [[]];
@@ -140,6 +143,7 @@ $(document).ready(() => {
                 $(children).eq(i).removeClass("border");
             }
         }
+        changed = true;
     }
 
     function nextLed() {
