@@ -1,5 +1,6 @@
 # LED-AnimationDesigner
 A simple web interface that simplifies making animations for LED strips.
+[Try it here.](https://nicolasdeory.github.io/LED-AnimationDesigner/)
 
 ## Usage
 Specify the number of LEDs you wish to make an animation for. A black LED strip will appear.
