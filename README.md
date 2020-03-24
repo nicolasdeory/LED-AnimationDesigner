@@ -29,6 +29,7 @@ The following data is a byte array containing FRAME_COUNT * NUM_LEDS * 3 color c
 A two-frame animation for a 5 LED strip will look like this:
 ```
 5,2
-0,0,0,0,0,0,203,69,255,127,255,48,0,0,0,0,0,0,203,69,255,127,255,48,0,0,0,0,0,0
+0,0,0,59,255,62,255,51,210,0,0,0,0,0,0,0,0,0,0,0,0,59,255,62,255,51,210,0,0,0
 ```
+![](readme/demo-anim.gif)
 
