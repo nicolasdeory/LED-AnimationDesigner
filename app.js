@@ -101,9 +101,7 @@ $(document).ready(() => {
 
     $("#export").click(() => {
         var prefix = NUM_LEDS + "," + FRAMES.length + "\n";
-        var finalString = prefix;
-        FRAMES.forEach(frame => finalString += frame.toString() + '\n');
-        $("#exported-anim").val(finalString);
+        $("#exported-anim").val(prefix + FRAMES.toString());
     });
 
     function refreshFrameText() {
