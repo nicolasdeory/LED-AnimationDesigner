@@ -22,18 +22,33 @@ $(document).ready(() => {
     function generateLEDS() {
         $("#led-container").empty();
         FRAMES = [[]];
-        for(let i = 0; i < NUM_LEDS; i++) {
-            if(NUM_LEDS > 180) {
-                $("#led-container").append("<div class='led small'></div>");
-            } else {
-                $("#led-container").append("<div class='led'></div>");
+        if (NUM_LEDS == -1) {
+            // keyboard layout
+            $("#led-container").addClass("keyboard-layout");
+            KEYBOARD_LAYOUT.forEach(key => {
+                $("#led-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
+                FRAMES[0].push(0);
+                FRAMES[0].push(0);
+                FRAMES[0].push(0); // 3 color channels
+            });
+            
+        } else {
+            $("#led-container").removeClass("keyboard-layout");
+            for(let i = 0; i < NUM_LEDS; i++) {
+                if(NUM_LEDS > 180) {
+                    $("#led-container").append("<div class='led small'></div>");
+                } else {
+                    $("#led-container").append("<div class='led'></div>");
+                }
+    
+                
+                FRAMES[0].push(0);
+                FRAMES[0].push(0);
+                FRAMES[0].push(0); // 3 color channels
             }
-
-            $(".led").click(onLedClicked);
-            FRAMES[0].push(0);
-            FRAMES[0].push(0);
-            FRAMES[0].push(0); // 3 color channels
         }
+        $(".led").click(onLedClicked);
+        
         generated = true;
         changed = false;
         selectedFrameIndex = 0;
@@ -100,7 +115,7 @@ $(document).ready(() => {
     });
 
     $("#export").click(() => {
-        var prefix = NUM_LEDS + "," + FRAMES.length + "\n";
+        var prefix = (NUM_LEDS==-1? 88 : NUM_LEDS) + "," + FRAMES.length + "\n";
         $("#exported-anim").val(prefix + FRAMES.toString());
     });
 
@@ -149,7 +164,7 @@ $(document).ready(() => {
     }
 
     function nextLed() {
-        if (selectedLEDIndex < NUM_LEDS - 1) {
+        if ((NUM_LEDS == -1 && selectedLEDIndex < KEYBOARD_LAYOUT.length-1) || selectedLEDIndex < NUM_LEDS - 1) {
             $("#led-container").children().removeClass("selected");
             selectedLEDIndex++;
             $("#led-container :nth-child(" + (selectedLEDIndex+1) + ")").addClass("selected");

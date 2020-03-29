@@ -5,6 +5,13 @@
     margin-top: 50px;
 }
 
+.keyboard-layout {
+    position: relative;
+    background-origin: padding-box;
+    margin-left: 100px;
+    height: 150px;
+}
+
 .led {
     background-color: #000;
     width: 7px;
@@ -17,8 +24,23 @@
     height: 5px;
 }
 
+.led.key {
+    position: absolute;
+    padding:2px;
+    border: solid 1px #000;
+    margin:5px;
+    font-size: 5pt;
+    color: white;
+}
+
 .led.selected {
     transform: translateY(-2px);
+}
+
+.led.key.selected {
+    transform: none;
+    outline: #ff00f5 solid 4px;
+    z-index: 200;
 }
 
 .led.border {
