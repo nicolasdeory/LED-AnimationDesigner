@@ -92,7 +92,8 @@ $(document).ready(() => {
     });
 
     $("#shift-right").click(() => {
-        for(let i = NUM_LEDS - 1; i >= 1; i--) {
+        var ledCount = NUM_LEDS == -1 ? 88 : NUM_LEDS;
+        for(let i = ledCount - 1; i >= 1; i--) {
             FRAMES[selectedFrameIndex][i*3+0] = FRAMES[selectedFrameIndex][(i-1)*3+0]
             FRAMES[selectedFrameIndex][i*3+1] = FRAMES[selectedFrameIndex][(i-1)*3+1]
             FRAMES[selectedFrameIndex][i*3+2] = FRAMES[selectedFrameIndex][(i-1)*3+2]
@@ -104,7 +105,8 @@ $(document).ready(() => {
     });
 
     $("#shift-left").click(() => {
-        for(let i = 0; i < NUM_LEDS - 1; i++) {
+        var ledCount = NUM_LEDS == -1 ? 88 : NUM_LEDS;
+        for(let i = 0; i < ledCount - 1; i++) {
             FRAMES[selectedFrameIndex][i*3+0] = FRAMES[selectedFrameIndex][(i+1)*3+0]
             FRAMES[selectedFrameIndex][i*3+1] = FRAMES[selectedFrameIndex][(i+1)*3+1]
             FRAMES[selectedFrameIndex][i*3+2] = FRAMES[selectedFrameIndex][(i+1)*3+2]
