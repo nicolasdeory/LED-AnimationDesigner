@@ -1,10 +1,11 @@
 # LED-AnimationDesigner
-A simple web interface that simplifies making animations for LED strips.
+A simple web interface that simplifies making animations for LED strips and keyboards.
 [Try it here.](https://nicolasdeory.github.io/LED-AnimationDesigner/)
 
 ## Usage
 Specify the number of LEDs you wish to make an animation for. A black LED strip will appear.
-Click on any LED to select it, and choose a color for the light with the color picker. 
+Click on any LED to select it, and choose a color for the light with the color picker.
+**If you want to make animations designed for keyboards, set the LED count to -1.**
 
 ## Keyboard control
 Press the left and right arrow keys to change the selected LED.
