@@ -148,7 +148,8 @@ $(document).ready(() => {
 
     function updateLeds(){
         var children = $("#led-container").children();
-        for(let i = 0; i < NUM_LEDS; i++) {
+        var ledCount = NUM_LEDS == -1 ? 88 : NUM_LEDS;
+        for(let i = 0; i < ledCount; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex][i*3]);
             var g = dec2hex(FRAMES[selectedFrameIndex][i*3+1]);
             var b = dec2hex(FRAMES[selectedFrameIndex][i*3+2]);
