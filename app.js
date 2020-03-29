@@ -66,7 +66,7 @@ $(document).ready(() => {
         FRAMES.splice(selectedFrameIndex+1,0,[]);
         selectedFrameIndex++;
         var ledCount = NUM_LEDS == -1 ? 88 : NUM_LEDS;
-        for(let i = 0; i < NUM_LEDS; i++) {
+        for(let i = 0; i < ledCount; i++) {
 
             FRAMES[selectedFrameIndex].push(0);
             FRAMES[selectedFrameIndex].push(0);
