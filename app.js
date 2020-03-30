@@ -3,7 +3,9 @@ function hex2dec(hex){
 }
 
 function dec2hex(dec) {
-    return dec.toString(16);
+    var str = dec.toString(16);
+    if (str.length == 0) return "00";
+    return str.length == 1 ? "0"+str : str;
 }
 
 $(document).ready(() => {
