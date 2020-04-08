@@ -50,6 +50,7 @@ $(document).ready(() => {
             }
         }
         $(".led").click(onLedClicked);
+        $(".led").dblclick(() => $("#color").change());
         
         generated = true;
         changed = false;
