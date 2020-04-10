@@ -55,11 +55,17 @@
 .final-section {
     margin-top: 50px;
 }
-
-#exported-anim {
+.final-section + .final-section {
+    margin-top: 10px;
+}
+.final-section input,
+.final-section textarea {
     width: 100%;
-    height: 300px;
     max-width: 800px;
+}
+.final-section textarea {
+    resize: none;
+    height: 200px;
 }
 
 .pre-defined-setup {
