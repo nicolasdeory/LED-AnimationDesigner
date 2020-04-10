@@ -151,7 +151,7 @@ $(document).ready(() => {
         var blob = new Blob( [$("#exported-anim").val()], {type: 'text/plain'} );
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.setAttribute("download", 'led animation.txt');
+        a.setAttribute( "download", $( '#project-name' ).val() + '.txt' );
         a.click();
     });
 
@@ -165,7 +165,9 @@ $(document).ready(() => {
             reader.onload = function() {
                 importFrames( reader.result );
             };
-            reader.readAsText(input.files[0]);
+            let file = input.files[0];
+            reader.readAsText(file);
+            $( '#project-name' ).val( file.name.split('.')[0] );
         };
     });
 
