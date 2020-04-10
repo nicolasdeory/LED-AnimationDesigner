@@ -8,6 +8,20 @@ function dec2hex(dec) {
     return str.length == 1 ? "0"+str : str;
 }
 
+Array.prototype.chunk = function ( chunk_size ) {
+    var index = 0;
+    var arrayLength = this.length;
+    var tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunk_size) {
+        myChunk = this.slice(index, index+chunk_size);
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+    }
+
+    return tempArray;
+}
+
 $(document).ready(() => {
 
     NUM_LEDS = 0;
@@ -140,6 +154,54 @@ $(document).ready(() => {
         a.setAttribute("download", 'led animation.txt');
         a.click();
     });
+
+    $("#import").click(() => {
+        var input = document.createElement("input");
+        input.type = 'file';
+        input.click();
+
+        input.onchange = function() {
+            var reader = new FileReader();
+            reader.onload = function() {
+                importFrames( reader.result );
+            };
+            reader.readAsText(input.files[0]);
+        };
+    });
+
+    function importFrames( text ) {
+        let pattern = /^(\d+),(\d+)\r?\n((\d+,)*\d+)(\r?\n)?$/;
+        let matches = text.match( pattern );
+
+        if ( matches == null ) {
+            alert("Text of file invalid");
+            return;
+        }
+
+        let tempNumLeds = matches[1] == 88 ? -1 : matches[1];
+        let tempFrames = matches[3].split( ',' );
+        tempFrames = tempFrames.map( (p) => +p );
+        tempFrames = tempFrames.chunk( matches[1] * 3 );
+
+        let lastFrameLength = tempFrames[tempFrames.length-1].length;
+        if ( lastFrameLength !== tempNumLeds * 3 ) {
+            for (var i = lastFrameLength; i < matches[1] * 3; i++) {
+                tempFrames[tempFrames.length-1].push(0)
+            }
+        }
+
+        NUM_LEDS = tempNumLeds;
+        setLed( NUM_LEDS );
+
+        FRAMES = tempFrames;
+
+        generated = true;
+        changed = false;
+        selectedFrameIndex = 0;
+        selectedLEDIndex = 0;
+        updateLeds();
+        refreshFrameText();
+    }
 
     function refreshFrameText() {
         $("#frame").text("Frame: " + (selectedFrameIndex + 1) + " / " + FRAMES.length);
