@@ -13,13 +13,20 @@ $(document).ready(() => {
     NUM_LEDS = 0;
     var generated = false;
     var changed = false;
+
     $("#setup").on('submit', function(e) {
-        NUM_LEDS = $("input[name='numLeds']").val();
-       // $("#setup").remove();
+        setLed( $("input[name='numLeds']").val() );
+    });
+    $(".pre-defined-setup button").on('click', function(e) {
+        setLed( $(this).data('value') );
+    });
+
+    function setLed( num ) {
+        NUM_LEDS = num;
         if (!generated || !changed || confirm("Are you sure you want to create a new animation? Export your animation if you want to save your changes."))
             generateLEDS();
         return false;
-    });
+    }
 
     function generateLEDS() {
         $("#led-container").empty();
