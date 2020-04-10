@@ -131,6 +131,16 @@ $(document).ready(() => {
         $("#exported-anim").val(prefix + FRAMES.toString());
     });
 
+    $("#export-file").click(() => {
+        $("#export").click();
+
+        var blob = new Blob( [$("#exported-anim").val()], {type: 'text/plain'} );
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.setAttribute("download", 'led animation.txt');
+        a.click();
+    });
+
     function refreshFrameText() {
         $("#frame").text("Frame: " + (selectedFrameIndex + 1) + " / " + FRAMES.length);
     }
