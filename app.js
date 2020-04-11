@@ -50,15 +50,14 @@ $(document).ready(() => {
             }
         }
         $(".led").click(onLedClicked);
+        $(".led").click(function (e) {
+            if ( e.ctrlKey ) {
+                let last_color = $("#color").val();
+                $("#color").val('000000').change();
+                $("#color").val(last_color);
+            }
+        }); 
         $(".led").dblclick(() => $("#color").change());
-        $(".led").contextmenu(function (e) {
-            $(this).click();
-            e.preventDefault();
-            // Maybe is not the best
-            let last_color = $("#color").val();
-            $("#color").val('000000').change();
-            $("#color").val(last_color);
-        });
         
         generated = true;
         changed = false;

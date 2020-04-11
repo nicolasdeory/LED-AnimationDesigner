@@ -11,7 +11,7 @@ Click on any LED to select it, and choose a color for the light with the color p
 Press the left and right arrow keys to change the selected LED.
 Press the up and down arrow keys to change the current frame.
 Double click on frame to apply the selected color.
-Right click on frame to clear.
+Ctrl + click on frame to clear.
 Move the cursor above the buttons to see the keys.
 
 ## Buttons
