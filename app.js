@@ -8,18 +8,39 @@ function dec2hex(dec) {
     return str.length == 1 ? "0"+str : str;
 }
 
+Array.prototype.chunk = function ( chunk_size ) {
+    var index = 0;
+    var arrayLength = this.length;
+    var tempArray = [];
+
+    for (index = 0; index < arrayLength; index += chunk_size) {
+        myChunk = this.slice(index, index+chunk_size);
+        // Do something if you want with the group
+        tempArray.push(myChunk);
+    }
+
+    return tempArray;
+}
+
 $(document).ready(() => {
 
     NUM_LEDS = 0;
     var generated = false;
     var changed = false;
+
     $("#setup").on('submit', function(e) {
-        NUM_LEDS = $("input[name='numLeds']").val();
-       // $("#setup").remove();
+        setLed( $("input[name='numLeds']").val() );
+    });
+    $(".pre-defined-setup button").on('click', function(e) {
+        setLed( $(this).data('value') );
+    });
+
+    function setLed( num ) {
+        NUM_LEDS = num;
         if (!generated || !changed || confirm("Are you sure you want to create a new animation? Export your animation if you want to save your changes."))
             generateLEDS();
         return false;
-    });
+    }
 
     function generateLEDS() {
         $("#led-container").empty();
@@ -123,6 +144,66 @@ $(document).ready(() => {
         var prefix = (NUM_LEDS==-1? 88 : NUM_LEDS) + "," + FRAMES.length + "\n";
         $("#exported-anim").val(prefix + FRAMES.toString());
     });
+
+    $("#export-file").click(() => {
+        $("#export").click();
+
+        var blob = new Blob( [$("#exported-anim").val()], {type: 'text/plain'} );
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.setAttribute( "download", $( '#project-name' ).val() + '.txt' );
+        a.click();
+    });
+
+    $("#import").click(() => {
+        var input = document.createElement("input");
+        input.type = 'file';
+        input.click();
+
+        input.onchange = function() {
+            var reader = new FileReader();
+            reader.onload = function() {
+                importFrames( reader.result );
+            };
+            let file = input.files[0];
+            reader.readAsText(file);
+            $( '#project-name' ).val( file.name.split('.')[0] );
+        };
+    });
+
+    function importFrames( text ) {
+        let pattern = /^(\d+),(\d+)\r?\n((\d+,)*\d+)(\r?\n)?$/;
+        let matches = text.match( pattern );
+
+        if ( matches == null ) {
+            alert("Text of file invalid");
+            return;
+        }
+
+        let tempNumLeds = matches[1] == 88 ? -1 : matches[1];
+        let tempFrames = matches[3].split( ',' );
+        tempFrames = tempFrames.map( (p) => +p );
+        tempFrames = tempFrames.chunk( matches[1] * 3 );
+
+        let lastFrameLength = tempFrames[tempFrames.length-1].length;
+        if ( lastFrameLength !== tempNumLeds * 3 ) {
+            for (var i = lastFrameLength; i < matches[1] * 3; i++) {
+                tempFrames[tempFrames.length-1].push(0)
+            }
+        }
+
+        NUM_LEDS = tempNumLeds;
+        setLed( NUM_LEDS );
+
+        FRAMES = tempFrames;
+
+        generated = true;
+        changed = false;
+        selectedFrameIndex = 0;
+        selectedLEDIndex = 0;
+        updateLeds();
+        refreshFrameText();
+    }
 
     function refreshFrameText() {
         $("#frame").text("Frame: " + (selectedFrameIndex + 1) + " / " + FRAMES.length);
