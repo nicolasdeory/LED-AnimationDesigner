@@ -22,7 +22,35 @@
             <button data-value="-1"> Keyboard </button>
             <button data-value="170"> Standard Strip Size </button>
         </div>
-        <div id="led-container"></div>
+        
+        <div class="led-section-container">
+            <p>Keyboard</p>
+            <div id="keyboard-container"></div>
+        </div>
+        <div class="led-section-container">
+            <p>LED Strip</p>
+            <div id="ledstrip-container"></div>
+        </div>
+        <div class="led-section-container">
+            <p>Mouse</p>
+            <div id="mouse-container"></div>
+        </div>
+        <div class="led-section-container">
+            <p>Mousepad</p>
+            <div id="mousepad-container"></div>
+        </div>
+        <div class="led-section-container">
+            <p>Headset</p>
+            <div id="headset-container"></div>
+        </div>
+        <div class="led-section-container">
+            <p>Keypad</p>
+            <div id="keypad-container"></div>
+        </div>
+        <div class="led-section-container">
+            <p>General LEDs</p>
+            <div id="ledgeneral-container"></div>
+        </div>
         <label for="color">Color</label>
         <input class="jscolor" id="color" value="000000"/>
         <div id="frame" class="info">Frame: 1 / 1</div>
@@ -59,8 +87,8 @@
                 <br> - Keyboard (should be of length 88 keys + 17 numpad = 105)
                 <br> - LED Strip (should be of length 170)
                 <br> - Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
-                <br> - Headset (First color is left side, second color is right side)
                 <br> - Mousepad (should be of length 15 - left to right order)
+                <br> - Headset (First color is left side, second color is right side)
                 <br> - 2D Keypad (5x5 array, row order starting in the top-left)
                 <br> - General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
             </p>
