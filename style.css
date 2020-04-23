@@ -5,6 +5,13 @@
     margin-top: 50px;
 }
 
+.animation-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
 .keyboard-layout {
     position: relative;
     background-origin: padding-box;
@@ -22,6 +29,11 @@
 .led.small {
     width: 5px;
     height: 5px;
+}
+
+.led.big {
+    width: 40px;
+    height: 40px;
 }
 
 .led.key {
