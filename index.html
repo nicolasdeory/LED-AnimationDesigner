@@ -50,8 +50,19 @@
         </div>
         <div>
             <p>Specification</p>
-            <p>The prefix is a line that contains the number of leds for the animation and the number of animation frames.
-                <br> What follows is a byte array formed by the three color channels of each led, for each frame.
+            <p>
+                The first line is a number that indicates the file format version (current = 2), and the number of animation frames.
+                <br> Each of the following lines is an animation frame. The different frame data arrays are separated by a semicolon.
+            </p>
+            <p>
+                Each frame is composed of 7 different comma-separated color byte arrays, in this order:
+                <br> - Keyboard (should be of length 88 keys + 17 numpad = 105)
+                <br> - LED Strip (should be of length 170)
+                <br> - Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
+                <br> - Headset (First color is left side, second color is right side)
+                <br> - Mousepad (should be of length 15 - left to right order)
+                <br> - 2D Keypad (5x5 array, row order starting in the top-left)
+                <br> - General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
             </p>
         </div>
     </body>
