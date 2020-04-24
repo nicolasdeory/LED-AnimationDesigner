@@ -71,6 +71,14 @@ $(document).ready(() => {
             }
         }
         $(".led").click(onLedClicked);
+        $(".led").click(function (e) {
+            if ( e.ctrlKey ) {
+                let last_color = $("#color").val();
+                $("#color").val('000000').change();
+                $("#color").val(last_color);
+            }
+        }); 
+        $(".led").dblclick(() => $("#color").change());
         
         generated = true;
         changed = false;
@@ -281,7 +289,12 @@ $(document).ready(() => {
     });
 
     $(document).keydown(function (e) {
-        switch (e.which) {
+        // Get the pressed key code
+        let key = e.which;
+        //  When pressed with ctrl, runs other function
+        if ( e.ctrlKey ) key += 1000;
+
+        switch (key) {
             case 37: // left
                 prevLed();
                 break;
@@ -296,6 +309,30 @@ $(document).ready(() => {
 
             case 40: // down
                 prevFrame();
+                break;
+
+            case 8: // Backspace
+                $("#delete-frame").click();
+                break;
+
+            case 1065: // Ctrl + A
+                $("#new-frame").click();
+                break;
+
+            case 1067: // Ctrl + C
+                $("#copy-last").click();
+                break;
+            
+            case 1037: // Ctrl + Left
+                $("#shift-left").click();
+                break;
+            
+            case 1039: // Ctrl + Right
+                $("#shift-right").click();
+                break;
+
+            case 1013: // Ctrl + Enter
+                $("#export").click();
                 break;
 
             default: return; // exit this handler for other keys
