@@ -2,14 +2,14 @@ MOUSE_LAYOUT = [
     {
         "key":"LOGO",
         "x":20,
-        "y":30,
+        "y":70,
         "width":30,
         "height":30
     },
     {
         "key":"SCROLL",
         "x":20,
-        "y":30,
+        "y":20,
         "width":15,
         "height":25
     },
