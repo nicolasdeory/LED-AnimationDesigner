@@ -112,3 +112,6 @@ MOUSE_LAYOUT = [
         "height":15
     },
 ];
+
+MOUSE_LAYOUT_WIDTH = 50;
+MOUSE_LAYOUT_HEIGHT = 105;

@@ -14,3 +14,6 @@ HEADSET_LAYOUT = [
         "height":40
     },
 ]
+
+HEADSET_LAYOUT_WIDTH = 50;
+HEADSET_LAYOUT_HEIGHT = 40;

@@ -49,9 +49,10 @@ $(document).ready(() => {
 
     $("#setup").on('submit', function (e) {
         //setLed( $("input[name='numLeds']").val() );
+        e.preventDefault();
         if (!generated || !changed || confirm("Are you sure you want to create a new animations? Export your animations if you want to save your changes."))
             generateLEDS();
-        e.preventDefault();
+        
     });
     $(".pre-defined-setup button").on('click', function (e) {
         setLed($(this).data('value'));
@@ -83,8 +84,8 @@ $(document).ready(() => {
             FRAMES[0].keyboard.push(0); // 3 color channels
         });
 
-        var lowestElem = Math.max.apply(Math, KEYBOARD_LAYOUT.map(function (o) { return o.y; }));
-        $("#keyboard-container").height(lowestElem.y + lowestElem.height ?? 20);
+        $("#keyboard-container").css("width", KEYBOARD_LAYOUT_WIDTH + "px");
+        $("#keyboard-container").css("height", KEYBOARD_LAYOUT_HEIGHT + "px");
 
 
         // mouse layout
@@ -96,8 +97,8 @@ $(document).ready(() => {
             FRAMES[0].mouse.push(0); // 3 color channels
         });
 
-        var lowestElem = Math.max.apply(Math, MOUSE_LAYOUT.map(function (o) { return o.y; }));
-        $("#mouse-container").height(lowestElem.y + lowestElem.height ?? 20);
+        $("#mouse-container").css("width", MOUSE_LAYOUT_WIDTH + "px");
+        $("#mouse-container").css("height", MOUSE_LAYOUT_HEIGHT + "px");
 
         // mousepad layout
         FRAMES[0].mousepad = [];
@@ -108,8 +109,8 @@ $(document).ready(() => {
             FRAMES[0].mousepad.push(0); // 3 color channels
         });
 
-        var lowestElem = Math.max.apply(Math, MOUSEPAD_LAYOUT.map(function (o) { return o.y; }));
-        $("#mousepad-container").height(lowestElem.y + lowestElem.height ?? 20);
+        $("#mousepad-container").css("width", MOUSEPAD_LAYOUT_WIDTH + "px");
+        $("#mousepad-container").css("height", MOUSEPAD_LAYOUT_HEIGHT + "px");
 
         // headset layout
         FRAMES[0].headset = [];
@@ -120,8 +121,8 @@ $(document).ready(() => {
             FRAMES[0].headset.push(0); // 3 color channels
         });
 
-        var lowestElem = Math.max.apply(Math, HEADSET_LAYOUT.map(function (o) { return o.y; }));
-        $("#headset-container").height(lowestElem.y + lowestElem.height ?? 20);
+        $("#headset-container").css("width", HEADSET_LAYOUT_WIDTH + "px");
+        $("#headset-container").css("height", HEADSET_LAYOUT_HEIGHT + "px");
 
         // headset layout
         FRAMES[0].keypad = [];
@@ -132,8 +133,8 @@ $(document).ready(() => {
             FRAMES[0].keypad.push(0); // 3 color channels
         });
 
-        var lowestElem = Math.max.apply(Math, KEYPAD_LAYOUT.map(function (o) { return o.y; }));
-        $("#keypad-container").height(lowestElem.y + lowestElem.height ?? 20);
+        $("#keypad-container").css("width", KEYPAD_LAYOUT_WIDTH + "px");
+        $("#keypad-container").css("height", KEYPAD_LAYOUT_WIDTH + "px");
 
         // general leds layout
         FRAMES[0].general = [];
@@ -144,8 +145,8 @@ $(document).ready(() => {
             FRAMES[0].general.push(0); // 3 color channels
         });
 
-        var lowestElem = Math.max.apply(Math, GENERAL_LEDS_LAYOUT.map(function (o) { return o.y; }));
-        $("#general-container").height(lowestElem.y + lowestElem.height ?? 20);
+        $("#general-container").css("width", GENERAL_LEDS_LAYOUT_WIDTH + "px");
+        $("#general-container").css("height", GENERAL_LEDS_LAYOUT_HEIGHT + "px");
 
         $(".led").click(onLedClicked);
 

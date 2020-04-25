@@ -100,3 +100,6 @@ KEYPAD_LAYOUT = [
         "y":60,
     },
 ]
+
+KEYPAD_LAYOUT_WIDTH = 100;
+KEYPAD_LAYOUT_HEIGHT = 80;
