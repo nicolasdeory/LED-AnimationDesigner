@@ -12,11 +12,15 @@
 }
 
 
-.keyboard-layout {
-    position: relative;
+.led-section-container {
     background-origin: padding-box;
     margin-left: 100px;
-    height: 150px;
+}
+
+.led-container {
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 25px;
 }
 
 .led {
@@ -24,6 +28,12 @@
     width: 7px;
     height: 7px;
     margin-left: 1px;
+}
+
+#strip-container 
+{
+    display: flex;
+    flex-direction: row;
 }
 
 .led.small {
