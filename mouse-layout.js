@@ -64,54 +64,54 @@ MOUSE_LAYOUT = [
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":0,
         "width":8,
         "height":15
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":15,
         "width":8,
         "height":15
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":30,
         "width":8,
         "height":15
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":45,
         "width":8,
         "height":15
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":60,
         "width":8,
         "height":15
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":75,
         "width":8,
         "height":15
     },
     {
         "key":"",
-        "x":40,
+        "x":70,
         "y":90,
         "width":8,
         "height":15
     },
 ];
 
-MOUSE_LAYOUT_WIDTH = 50;
+MOUSE_LAYOUT_WIDTH = 80;
 MOUSE_LAYOUT_HEIGHT = 105;
