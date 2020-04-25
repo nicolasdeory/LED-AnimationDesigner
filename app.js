@@ -48,18 +48,20 @@ $(document).ready(() => {
     var changed = false;
 
     $("#setup").on('submit', function(e) {
-        setLed( $("input[name='numLeds']").val() );
+        //setLed( $("input[name='numLeds']").val() );
+        if (!generated || !changed || confirm("Are you sure you want to create a new animations? Export your animations if you want to save your changes."))
+        generateLEDS();
     });
     $(".pre-defined-setup button").on('click', function(e) {
         setLed( $(this).data('value') );
     });
 
-    function setLed( num ) {
+    /*function setLed( num ) {
         NUMLEDS_STRIP = num;
         if (!generated || !changed || confirm("Are you sure you want to create a new animation? Export your animation if you want to save your changes."))
             generateLEDS();
         return false;
-    }
+    }*/
 
     function generateLEDS() {
         $("#led-container").empty();
