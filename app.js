@@ -48,20 +48,15 @@ $(document).ready(() => {
     var changed = false;
 
     $("#setup").on('submit', function (e) {
-        //setLed( $("input[name='numLeds']").val() );
         e.preventDefault();
         if (!generated || !changed || confirm("Are you sure you want to create a new animations? Export your animations if you want to save your changes."))
             generateLEDS();
         
     });
-    $(".pre-defined-setup button").on('click', function (e) {
-        setLed($(this).data('value'));
-    });
 
     function generateLEDS() {
-        $("#led-container").empty();
+        $(".led-container").empty();
         FRAMES = [{}];
-
         // ledstrip layout
         FRAMES[0].strip = [];
         for (let i = 0; i < 170; i++) {
@@ -453,6 +448,7 @@ $(document).ready(() => {
         FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 0] = r;
         FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 1] = g;
         FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 2] = b;
+        changed = true;
     });
 
     $(document).keydown(function (e) {
