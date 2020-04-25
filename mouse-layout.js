@@ -1,15 +1,15 @@
 MOUSE_LAYOUT = [
     {
-        "key":"Main",
+        "key":"LOGO",
         "x":20,
         "y":30,
         "width":30,
         "height":30
     },
     {
-        "key":"Scrwhl",
-        "x":25,
-        "y":0,
+        "key":"SCROLL",
+        "x":20,
+        "y":30,
         "width":15,
         "height":25
     },

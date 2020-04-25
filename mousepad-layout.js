@@ -85,33 +85,33 @@ MOUSEPAD_LAYOUT = [
     },
     {
         "key":"",
-        "x":280,
+        "x":310,
         "y":120,
         "width":8,
         "height":40
     },
     {
         "key":"",
-        "x":280,
+        "x":310,
         "y":80,
         "width":8,
         "height":40
     },
     {
         "key":"",
-        "x":280,
+        "x":310,
         "y":40,
         "width":8,
         "height":40
     },
     {
         "key":"",
-        "x":280,
+        "x":310,
         "y":0,
         "width":8,
         "height":40
     },
 ]
 
-MOUSEPAD_LAYOUT_WIDTH = 300;
+MOUSEPAD_LAYOUT_WIDTH = 330;
 MOUSEPAD_LAYOUT_HEIGHT = 180;

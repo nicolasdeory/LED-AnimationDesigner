@@ -95,7 +95,7 @@ KEYPAD_LAYOUT = [
         "y":60,
     },
     {
-        "key":"scr",
+        "key":"SCROLL",
         "x":80,
         "y":60,
     },
