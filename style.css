@@ -53,6 +53,11 @@
     margin:5px;
     font-size: 5pt;
     color: white;
+    outline: solid 1px;
+}
+
+.led.keyboard.key {
+    outline: none;
 }
 
 .led.selected {

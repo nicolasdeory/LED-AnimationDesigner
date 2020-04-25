@@ -78,7 +78,7 @@ $(document).ready(() => {
         // keyboard layout
         FRAMES[0].keyboard = [];
         KEYBOARD_LAYOUT.forEach(key => {
-            $("#keyboard-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
+            $("#keyboard-container").append(`<div class='led keyboard key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].keyboard.push(0);
             FRAMES[0].keyboard.push(0);
             FRAMES[0].keyboard.push(0); // 3 color channels
