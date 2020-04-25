@@ -309,7 +309,7 @@ $(document).ready(() => {
     function onLedClicked() {
 
         if (selectedLEDIndex != -1)
-            $(".led").children().removeClass("selected");
+            $(".led").removeClass("selected");
         selectedLEDIndex = $(this).index();
         selectedLEDClass = $(this).parent().attr("id").replace("-container", "");
         $(this).addClass("selected");
