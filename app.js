@@ -188,7 +188,7 @@ $(document).ready(() => {
     });
 
     $("#copy-last").click(() => {
-        FRAMES.splice(selectedFrameIndex + 1, 0, FRAMES[selectedFrameIndex].slice());
+        FRAMES.splice(selectedFrameIndex + 1, 0, JSON.parse(JSON.stringify(FRAMES[selectedFrameIndex])));
         selectedFrameIndex++;
         refreshFrameText();
         updateLeds();
@@ -327,33 +327,33 @@ $(document).ready(() => {
 
     function updateLeds() {
         var keyboardChildren = $("#keyboard-container").children();
-        for (let i = 0; i < NUMLEDS_KEYBOARD.length; i++) {
+        for (let i = 0; i < NUMLEDS_KEYBOARD; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
-            $(children).eq(i).css("background-color", "#" + fullColor);
+            $(keyboardChildren).eq(i).css("background-color", "#" + fullColor);
             if (fullColor.toLowerCase() == "ffffff") {
-                $(children).eq(i).addClass("border");
+                $(keyboardChildren).eq(i).addClass("border");
             } else {
-                $(children).eq(i).removeClass("border");
+                $(keyboardChildren).eq(i).removeClass("border");
             }
         }
         var stripChildren = $("#strip-container").children();
-        for (let i = 0; i < NUMLEDS_STRIP.length; i++) {
-            var r = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3]);
-            var g = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3 + 1]);
-            var b = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3 + 2]);
+        for (let i = 0; i < NUMLEDS_STRIP; i++) {
+            var r = dec2hex(FRAMES[selectedFrameIndex].strip[i * 3]);
+            var g = dec2hex(FRAMES[selectedFrameIndex].strip[i * 3 + 1]);
+            var b = dec2hex(FRAMES[selectedFrameIndex].strip[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
-            $(children).eq(i).css("background-color", "#" + fullColor);
+            $(stripChildren).eq(i).css("background-color", "#" + fullColor);
             if (fullColor.toLowerCase() == "ffffff") {
-                $(children).eq(i).addClass("border");
+                $(stripChildren).eq(i).addClass("border");
             } else {
-                $(children).eq(i).removeClass("border");
+                $(stripChildren).eq(i).removeClass("border");
             }
         }
         var mouseChildren = $("#mouse-container").children();
-        for (let i = 0; i < NUMLEDS_MOUSE.length; i++) {
+        for (let i = 0; i < NUMLEDS_MOUSE; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex].mouse[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].mouse[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].mouse[i * 3 + 2]);
@@ -366,7 +366,7 @@ $(document).ready(() => {
             }
         }
         var mousepadChildren = $("#mousepad-container").children();
-        for (let i = 0; i < NUMLEDS_MOUSEPAD.length; i++) {
+        for (let i = 0; i < NUMLEDS_MOUSEPAD; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex].mousepad[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].mousepad[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].mousepad[i * 3 + 2]);
@@ -379,7 +379,7 @@ $(document).ready(() => {
             }
         }
         var headsetChildren = $("#headset-container").children();
-        for (let i = 0; i < NUMLEDS_HEADSET.length; i++) {
+        for (let i = 0; i < NUMLEDS_HEADSET; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex].headset[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].headset[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].headset[i * 3 + 2]);
@@ -392,7 +392,7 @@ $(document).ready(() => {
             }
         }
         var keypadChildren = $("#keypad-container").children();
-        for (let i = 0; i < NUMLEDS_KEYPAD.length; i++) {
+        for (let i = 0; i < NUMLEDS_KEYPAD; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex].keypad[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].keypad[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].keypad[i * 3 + 2]);
@@ -405,7 +405,7 @@ $(document).ready(() => {
             }
         }
         var generalChildren = $("#general-container").children();
-        for (let i = 0; i < NUMLEDS_GENERAL.length; i++) {
+        for (let i = 0; i < NUMLEDS_GENERAL; i++) {
             var r = dec2hex(FRAMES[selectedFrameIndex].general[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].general[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].general[i * 3 + 2]);
