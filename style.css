@@ -1,3 +1,8 @@
+#setup button {
+    width: 100px;
+    height: 40px;
+}
+
 #led-container {
     display: flex;
     justify-content: center;
