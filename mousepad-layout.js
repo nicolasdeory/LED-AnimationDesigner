@@ -85,28 +85,28 @@ MOUSEPAD_LAYOUT = [
     },
     {
         "key":"",
-        "x":310,
+        "x":312,
         "y":120,
         "width":8,
         "height":40
     },
     {
         "key":"",
-        "x":310,
+        "x":312,
         "y":80,
         "width":8,
         "height":40
     },
     {
         "key":"",
-        "x":310,
+        "x":312,
         "y":40,
         "width":8,
         "height":40
     },
     {
         "key":"",
-        "x":310,
+        "x":312,
         "y":0,
         "width":8,
         "height":40
