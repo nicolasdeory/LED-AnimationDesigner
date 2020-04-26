@@ -8,6 +8,10 @@ function dec2hex(dec) {
     return str.length == 1 ? "0" + str : str;
 }
 
+function map(val, in_min, in_max, out_min, out_max) {
+    return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
+
 Array.prototype.chunk = function (chunk_size) {
     var index = 0;
     var arrayLength = this.length;
@@ -152,6 +156,11 @@ $(document).ready(() => {
         refreshFrameText();
     }
 
+    function pointToKey(x, y) 
+    {
+        return KEYBOARD_POINT_TO_KEY_ARRAY[y][x];
+    }
+
     var FRAMES = [{}];
     var selectedFrameIndex = 0;
     var selectedLEDIndex = 0;
@@ -225,6 +234,55 @@ $(document).ready(() => {
         FRAMES[selectedFrameIndex].strip[(NUMLEDS_STRIP - 1) * 3 + 0] = 0;
         FRAMES[selectedFrameIndex].strip[(NUMLEDS_STRIP - 1) * 3 + 1] = 0;
         FRAMES[selectedFrameIndex].strip[(NUMLEDS_STRIP - 1) * 3 + 2] = 0;
+        updateLeds();
+    });
+
+    $("#copy-strip-to-keyboard").click(() => {
+        
+        // reset keyboard
+        //FRAMES[selectedFrameIndex].keyboard = [];
+        for(let i = 0; i < KEYBOARD_LAYOUT.length*3; i++) 
+        {
+            FRAMES[selectedFrameIndex].keyboard[i] = 0;
+        }
+
+        for (let i = 0; i < NUMLEDS_STRIP - 1; i++) 
+        {
+            const r = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 0]);
+            const g = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 1]);
+            const b = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 2]);
+            const stripColorHex = dec2hex(r) + dec2hex(g) + dec2hex(b);
+            if (stripColorHex == '000000') continue;
+            const mappedX = parseInt(map(i, 0, NUMLEDS_STRIP, 0, 19),10); // 19 is kb width w/o numpad
+            for(let j = 0; j < 6; j++)
+            {
+                const key = pointToKey(mappedX, j);
+                if (key == -1) continue;
+                const kr = FRAMES[selectedFrameIndex].keyboard[key*3 + 0];
+                const kg = FRAMES[selectedFrameIndex].keyboard[key*3 + 1];
+                const kb = FRAMES[selectedFrameIndex].keyboard[key*3 + 2];
+                const kbColorHex = dec2hex(kr) + dec2hex(kg) + dec2hex(kb);
+                if (kbColorHex == '000000') 
+                {
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = r;
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = g;
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = b;
+                } else 
+                {
+                    // in order for average to work, it needs to work on HSV not RGB
+                   /* FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = parseInt((r + kr) / 2, 10);
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = parseInt((b + kb) / 2, 10);
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = parseInt((g + kg) / 2, 10);*/
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = r;
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = g;
+                    FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = b;
+                }  
+            }
+            
+            FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
+            FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
+            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]
+        }
         updateLeds();
     });
 
