@@ -1,23 +1,28 @@
-function hex2dec(hex) {
+function hex2dec(hex)
+{
     return parseInt("0x" + hex);
 }
 
-function dec2hex(dec) {
+function dec2hex(dec)
+{
     var str = dec.toString(16);
     if (str.length == 0) return "00";
     return str.length == 1 ? "0" + str : str;
 }
 
-function map(val, in_min, in_max, out_min, out_max) {
+function map(val, in_min, in_max, out_min, out_max)
+{
     return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-Array.prototype.chunk = function (chunk_size) {
+Array.prototype.chunk = function (chunk_size)
+{
     var index = 0;
     var arrayLength = this.length;
     var tempArray = [];
 
-    for (index = 0; index < arrayLength; index += chunk_size) {
+    for (index = 0; index < arrayLength; index += chunk_size)
+    {
         myChunk = this.slice(index, index + chunk_size);
         // Do something if you want with the group
         tempArray.push(myChunk);
@@ -26,7 +31,8 @@ Array.prototype.chunk = function (chunk_size) {
     return tempArray;
 }
 
-$(document).ready(() => {
+$(document).ready(() =>
+{
 
 
     const NUMLEDS_KEYBOARD = KEYBOARD_LAYOUT.length; // TODO: ADD NUMPAD
@@ -51,22 +57,27 @@ $(document).ready(() => {
     var generated = false;
     var changed = false;
 
-    $("#setup").on('submit', function (e) {
+    $("#setup").on('submit', function (e)
+    {
         e.preventDefault();
         if (!generated || !changed || confirm("Are you sure you want to create a new animations? Export your animations if you want to save your changes."))
             generateLEDS();
-        
+
     });
 
-    function generateLEDS() {
+    function generateLEDS()
+    {
         $(".led-container").empty();
         FRAMES = [{}];
         // ledstrip layout
         FRAMES[0].strip = [];
-        for (let i = 0; i < 170; i++) {
-            if (NUMLEDS_STRIP > 180) {
+        for (let i = 0; i < 170; i++)
+        {
+            if (NUMLEDS_STRIP > 180)
+            {
                 $("#strip-container").append("<div class='led small'></div>");
-            } else {
+            } else
+            {
                 $("#strip-container").append("<div class='led'></div>");
             }
             FRAMES[0].strip.push(0);
@@ -76,7 +87,8 @@ $(document).ready(() => {
 
         // keyboard layout
         FRAMES[0].keyboard = [];
-        KEYBOARD_LAYOUT.forEach(key => {
+        KEYBOARD_LAYOUT.forEach(key =>
+        {
             $("#keyboard-container").append(`<div class='led keyboard key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].keyboard.push(0);
             FRAMES[0].keyboard.push(0);
@@ -89,7 +101,8 @@ $(document).ready(() => {
 
         // mouse layout
         FRAMES[0].mouse = [];
-        MOUSE_LAYOUT.forEach(key => {
+        MOUSE_LAYOUT.forEach(key =>
+        {
             $("#mouse-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].mouse.push(0);
             FRAMES[0].mouse.push(0);
@@ -101,7 +114,8 @@ $(document).ready(() => {
 
         // mousepad layout
         FRAMES[0].mousepad = [];
-        MOUSEPAD_LAYOUT.forEach(key => {
+        MOUSEPAD_LAYOUT.forEach(key =>
+        {
             $("#mousepad-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].mousepad.push(0);
             FRAMES[0].mousepad.push(0);
@@ -113,7 +127,8 @@ $(document).ready(() => {
 
         // headset layout
         FRAMES[0].headset = [];
-        HEADSET_LAYOUT.forEach(key => {
+        HEADSET_LAYOUT.forEach(key =>
+        {
             $("#headset-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].headset.push(0);
             FRAMES[0].headset.push(0);
@@ -125,7 +140,8 @@ $(document).ready(() => {
 
         // headset layout
         FRAMES[0].keypad = [];
-        KEYPAD_LAYOUT.forEach(key => {
+        KEYPAD_LAYOUT.forEach(key =>
+        {
             $("#keypad-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].keypad.push(0);
             FRAMES[0].keypad.push(0);
@@ -137,7 +153,8 @@ $(document).ready(() => {
 
         // general leds layout
         FRAMES[0].general = [];
-        GENERAL_LEDS_LAYOUT.forEach(key => {
+        GENERAL_LEDS_LAYOUT.forEach(key =>
+        {
             $("#general-container").append(`<div class='led key' style="width: ${key.width ?? 20}px; height: ${key.height ?? 20}px; left: ${key.x}px; top: ${key.y}px">${key.key}</div>`);
             FRAMES[0].general.push(0);
             FRAMES[0].general.push(0);
@@ -168,42 +185,52 @@ $(document).ready(() => {
     $("#next-frame").click(nextFrame);
     $("#prev-frame").click(prevFrame);
 
-    $("#new-frame").click(() => {
+    $("#new-frame").click(() =>
+    {
         FRAMES.splice(selectedFrameIndex + 1, 0, {});
         selectedFrameIndex++;
-        for (let i = 0; i < NUMLEDS_KEYBOARD.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_KEYBOARD.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].keyboard.push(0); // 3 color channels
         }
-        for (let i = 0; i < NUMLEDS_STRIP.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_STRIP.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].strip.push(0);
         }
-        for (let i = 0; i < NUMLEDS_MOUSE.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_MOUSE.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].mouse.push(0);
         }
-        for (let i = 0; i < NUMLEDS_MOUSEPAD.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_MOUSEPAD.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].mousepad.push(0);
         }
-        for (let i = 0; i < NUMLEDS_HEADSET.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_HEADSET.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].headset.push(0);
         }
-        for (let i = 0; i < NUMLEDS_KEYPAD.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_KEYPAD.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].keypad.push(0);
         }
-        for (let i = 0; i < NUMLEDS_GENERAL.length * 3; i++) {
+        for (let i = 0; i < NUMLEDS_GENERAL.length * 3; i++)
+        {
             FRAMES[selectedFrameIndex].general.push(0);
         }
         refreshFrameText();
         updateLeds();
     });
 
-    $("#copy-last").click(() => {
+    $("#copy-last").click(() =>
+    {
         FRAMES.splice(selectedFrameIndex + 1, 0, JSON.parse(JSON.stringify(FRAMES[selectedFrameIndex])));
         selectedFrameIndex++;
         refreshFrameText();
         updateLeds();
     });
 
-    $("#delete-frame").click(() => {
+    $("#delete-frame").click(() =>
+    {
         if (FRAMES.length == 1) return;
         FRAMES.splice(selectedFrameIndex, 1);
         selectedFrameIndex--;
@@ -212,8 +239,10 @@ $(document).ready(() => {
     });
 
     // Shifts right LED STRIP
-    $("#shift-right").click(() => {
-        for (let i = NUMLEDS_STRIP - 1; i >= 1; i--) {
+    $("#shift-right").click(() =>
+    {
+        for (let i = NUMLEDS_STRIP - 1; i >= 1; i--)
+        {
             FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i - 1) * 3 + 0]
             FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i - 1) * 3 + 1]
             FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i - 1) * 3 + 2]
@@ -225,8 +254,10 @@ $(document).ready(() => {
     });
 
     // Shifts left LED STRIP
-    $("#shift-left").click(() => {
-        for (let i = 0; i < NUMLEDS_STRIP - 1; i++) {
+    $("#shift-left").click(() =>
+    {
+        for (let i = 0; i < NUMLEDS_STRIP - 1; i++)
+        {
             FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
             FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
             FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]
@@ -237,46 +268,47 @@ $(document).ready(() => {
         updateLeds();
     });
 
-    $("#copy-strip-to-keyboard").click(() => {
-        
+    $("#copy-strip-to-keyboard").click(() =>
+    {
+
         // reset keyboard
-        for(let i = 0; i < KEYBOARD_LAYOUT.length*3; i++) 
+        for (let i = 0; i < KEYBOARD_LAYOUT.length * 3; i++)
         {
             FRAMES[selectedFrameIndex].keyboard[i] = 0;
         }
-        for (let i = 0; i < NUMLEDS_STRIP - 1; i++) 
+        for (let i = 0; i < NUMLEDS_STRIP - 1; i++)
         {
-            const r = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 0]);
-            const g = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 1]);
-            const b = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 2]);
+            const r = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 0]);
+            const g = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 1]);
+            const b = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 2]);
             const stripColorHex = dec2hex(r) + dec2hex(g) + dec2hex(b);
             if (stripColorHex == '000000') continue;
-            const mappedX = parseInt(map(i, 0, NUMLEDS_STRIP, 0, 19),10); // 19 is kb width w/o numpad
-            for(let j = 0; j < 6; j++)
+            const mappedX = parseInt(map(i, 0, NUMLEDS_STRIP, 0, 19), 10); // 19 is kb width w/o numpad
+            for (let j = 0; j < 6; j++)
             {
                 const key = pointToKey(mappedX, j);
                 if (key == -1) continue;
-                const kr = FRAMES[selectedFrameIndex].keyboard[key*3 + 0];
-                const kg = FRAMES[selectedFrameIndex].keyboard[key*3 + 1];
-                const kb = FRAMES[selectedFrameIndex].keyboard[key*3 + 2];
+                const kr = FRAMES[selectedFrameIndex].keyboard[key * 3 + 0];
+                const kg = FRAMES[selectedFrameIndex].keyboard[key * 3 + 1];
+                const kb = FRAMES[selectedFrameIndex].keyboard[key * 3 + 2];
                 const kbColorHex = dec2hex(kr) + dec2hex(kg) + dec2hex(kb);
-                if (kbColorHex == '000000') 
+                if (kbColorHex == '000000')
                 {
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = r;
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = g;
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = b;
-                } else 
+                    FRAMES[selectedFrameIndex].keyboard[key * 3 + 0] = r;
+                    FRAMES[selectedFrameIndex].keyboard[key * 3 + 1] = g;
+                    FRAMES[selectedFrameIndex].keyboard[key * 3 + 2] = b;
+                } else
                 {
                     // in order for average to work, it needs to work on HSV not RGB
-                   /* FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = parseInt((r + kr) / 2, 10);
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = parseInt((b + kb) / 2, 10);
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = parseInt((g + kg) / 2, 10);*/
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = r;
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = g;
-                    FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = b;
-                }  
+                    /* FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = parseInt((r + kr) / 2, 10);
+                     FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = parseInt((b + kb) / 2, 10);
+                     FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = parseInt((g + kg) / 2, 10);*/
+                    FRAMES[selectedFrameIndex].keyboard[key * 3 + 0] = r;
+                    FRAMES[selectedFrameIndex].keyboard[key * 3 + 1] = g;
+                    FRAMES[selectedFrameIndex].keyboard[key * 3 + 2] = b;
+                }
             }
-            
+
             FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
             FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
             FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]
@@ -284,41 +316,57 @@ $(document).ready(() => {
         updateLeds();
     });
 
-    $("#export").click(() => {
-        console.error("Export unimplemented");
-        /* var prefix = (NUMLEDS_STRIP==-1? 88 : NUMLEDS_STRIP) + "," + FRAMES.length + "\n";
-         $("#exported-anim").val(prefix + FRAMES.toString());*/
+    $("#export").click(() =>
+    {
+        //console.error("Export unimplemented");
+        var fileString = `2,${FRAMES.length}\n`
+        FRAMES.forEach(frame =>
+        {
+            fileString += frame.keyboard.toString() + ";";
+            fileString += frame.strip.toString() + ";";
+            fileString += frame.mouse.toString() + ";";
+            fileString += frame.mousepad.toString() + ";";
+            fileString += frame.headset.toString() + ";";
+            fileString += frame.keypad.toString() + ";";
+            fileString += frame.general.toString() + "\n";
+        });
+        $("#exported-anim").val(fileString);
     });
 
-    $("#export-file").click(() => {
+    $("#export-file").click(() =>
+    {
         console.error("Export unimplemented");
-        /*
+
         $("#export").click();
 
-        var blob = new Blob( [$("#exported-anim").val()], {type: 'text/plain'} );
+        var blob = new Blob([$("#exported-anim").val()], { type: 'text/plain' });
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.setAttribute( "download", $( '#project-name' ).val() + '.txt' );
-        a.click();*/
+        a.setAttribute("download", $('#project-name').val() + '.txt');
+        a.click();
     });
 
-    $("#import-legacy").click(() => {
+    $("#import-legacy").click(() =>
+    {
         var input = document.createElement("input");
         input.type = 'file';
         input.click();
 
-        input.onchange = function() {
+        input.onchange = function ()
+        {
             var reader = new FileReader();
-            reader.onload = function() {
-                importFramesLegacy( reader.result );
+            reader.onload = function ()
+            {
+                importFramesLegacy(reader.result);
             };
             let file = input.files[0];
             reader.readAsText(file);
-            $( '#project-name' ).val( file.name.split('.')[0] );
+            $('#project-name').val(file.name.split('.')[0]);
         };
     });
 
-    $("#import").click(() => {
+    $("#import").click(() =>
+    {
         console.error("Import unimplemented");
         /*var input = document.createElement("input");
         input.type = 'file';
@@ -335,14 +383,16 @@ $(document).ready(() => {
         };*/
     });
 
-    function importFramesLegacy(text) {
+    function importFramesLegacy(text)
+    {
 
         generateLEDS();
 
         let pattern = /^(\d+),(\d+)\r?\n((\d+,)*\d+)(\r?\n)?$/;
         let matches = text.match(pattern);
 
-        if (matches == null) {
+        if (matches == null)
+        {
             alert("Text of file invalid");
             return;
         }
@@ -353,8 +403,10 @@ $(document).ready(() => {
         tempFrames = tempFrames.chunk(matches[1] * 3);
 
         let lastFrameLength = tempFrames[tempFrames.length - 1].length;
-        if (lastFrameLength !== tempNumLeds * 3) {
-            for (var i = lastFrameLength; i < matches[1] * 3; i++) {
+        if (lastFrameLength !== tempNumLeds * 3)
+        {
+            for (var i = lastFrameLength; i < matches[1] * 3; i++)
+            {
                 tempFrames[tempFrames.length - 1].push(0)
             }
         }
@@ -362,51 +414,53 @@ $(document).ready(() => {
         if (tempNumLeds == 88) // keyboard
         {
             let i = 0;
-            tempFrames.forEach(frame => {
-                if (i == 0) 
+            tempFrames.forEach(frame =>
+            {
+                if (i == 0)
                 {
                     FRAMES[0].keyboard = frame;
-                } else 
+                } else
                 {
                     FRAMES.push(
-                    {
-                        keyboard: frame,
-                        strip: Array.apply(null, Array(NUMLEDS_STRIP*3)).map(Number.prototype.valueOf,0),
-                        mouse: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
-                        mousepad: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
-                        headset: Array.apply(null, Array(NUMLEDS_HEADSET*3)).map(Number.prototype.valueOf,0),
-                        keypad: Array.apply(null, Array(NUMLEDS_KEYPAD*3)).map(Number.prototype.valueOf,0),
-                        general: Array.apply(null, Array(NUMLEDS_GENERAL*3)).map(Number.prototype.valueOf,0),
-                    });
+                        {
+                            keyboard: frame,
+                            strip: Array.apply(null, Array(NUMLEDS_STRIP * 3)).map(Number.prototype.valueOf, 0),
+                            mouse: Array.apply(null, Array(NUMLEDS_MOUSEPAD * 3)).map(Number.prototype.valueOf, 0),
+                            mousepad: Array.apply(null, Array(NUMLEDS_MOUSEPAD * 3)).map(Number.prototype.valueOf, 0),
+                            headset: Array.apply(null, Array(NUMLEDS_HEADSET * 3)).map(Number.prototype.valueOf, 0),
+                            keypad: Array.apply(null, Array(NUMLEDS_KEYPAD * 3)).map(Number.prototype.valueOf, 0),
+                            general: Array.apply(null, Array(NUMLEDS_GENERAL * 3)).map(Number.prototype.valueOf, 0),
+                        });
                 }
-                
+
                 i++;
             });
         } else if (tempNumLeds == 170) // strip
         {
             let i = 0;
-            tempFrames.forEach(frame => {
+            tempFrames.forEach(frame =>
+            {
                 if (i == 0)
                 {
                     FRAMES[0].strip = frame;
-                } else 
+                } else
                 {
                     FRAMES.push(
                         {
-                            keyboard: Array.apply(null, Array(NUMLEDS_KEYBOARD*3)).map(Number.prototype.valueOf,0),
+                            keyboard: Array.apply(null, Array(NUMLEDS_KEYBOARD * 3)).map(Number.prototype.valueOf, 0),
                             strip: frame,
-                            mouse: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
-                            mousepad: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
-                            headset: Array.apply(null, Array(NUMLEDS_HEADSET*3)).map(Number.prototype.valueOf,0),
-                            keypad: Array.apply(null, Array(NUMLEDS_KEYPAD*3)).map(Number.prototype.valueOf,0),
-                            general: Array.apply(null, Array(NUMLEDS_GENERAL*3)).map(Number.prototype.valueOf,0),
+                            mouse: Array.apply(null, Array(NUMLEDS_MOUSEPAD * 3)).map(Number.prototype.valueOf, 0),
+                            mousepad: Array.apply(null, Array(NUMLEDS_MOUSEPAD * 3)).map(Number.prototype.valueOf, 0),
+                            headset: Array.apply(null, Array(NUMLEDS_HEADSET * 3)).map(Number.prototype.valueOf, 0),
+                            keypad: Array.apply(null, Array(NUMLEDS_KEYPAD * 3)).map(Number.prototype.valueOf, 0),
+                            general: Array.apply(null, Array(NUMLEDS_GENERAL * 3)).map(Number.prototype.valueOf, 0),
                         });
                 }
                 i++;
             });
         }
 
-        
+
         generated = true;
         changed = false;
         selectedFrameIndex = 0;
@@ -415,11 +469,13 @@ $(document).ready(() => {
         refreshFrameText();
     }
 
-    function refreshFrameText() {
+    function refreshFrameText()
+    {
         $("#frame").text("Frame: " + (selectedFrameIndex + 1) + " / " + FRAMES.length);
     }
 
-    function onLedClicked() {
+    function onLedClicked()
+    {
 
         if (selectedLEDIndex != -1)
             $(".led").removeClass("selected");
@@ -429,132 +485,161 @@ $(document).ready(() => {
 
     }
 
-    function prevFrame() {
+    function prevFrame()
+    {
         if (selectedFrameIndex == 0) return;
         selectedFrameIndex--;
         refreshFrameText();
         updateLeds();
     }
 
-    function nextFrame() {
+    function nextFrame()
+    {
         if (selectedFrameIndex == FRAMES.length - 1) return;
         selectedFrameIndex++;
         refreshFrameText();
         updateLeds();
     }
 
-    function updateLeds() {
+    function updateLeds()
+    {
         var keyboardChildren = $("#keyboard-container").children();
-        for (let i = 0; i < NUMLEDS_KEYBOARD; i++) {
+        for (let i = 0; i < NUMLEDS_KEYBOARD; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].keyboard[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(keyboardChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(keyboardChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(keyboardChildren).eq(i).removeClass("border");
             }
         }
         var stripChildren = $("#strip-container").children();
-        for (let i = 0; i < NUMLEDS_STRIP; i++) {
+        for (let i = 0; i < NUMLEDS_STRIP; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].strip[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].strip[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].strip[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(stripChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(stripChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(stripChildren).eq(i).removeClass("border");
             }
         }
         var mouseChildren = $("#mouse-container").children();
-        for (let i = 0; i < NUMLEDS_MOUSE; i++) {
+        for (let i = 0; i < NUMLEDS_MOUSE; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].mouse[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].mouse[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].mouse[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(mouseChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(mouseChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(mouseChildren).eq(i).removeClass("border");
             }
         }
         var mousepadChildren = $("#mousepad-container").children();
-        for (let i = 0; i < NUMLEDS_MOUSEPAD; i++) {
+        for (let i = 0; i < NUMLEDS_MOUSEPAD; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].mousepad[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].mousepad[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].mousepad[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(mousepadChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(mousepadChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(mousepadChildren).eq(i).removeClass("border");
             }
         }
         var headsetChildren = $("#headset-container").children();
-        for (let i = 0; i < NUMLEDS_HEADSET; i++) {
+        for (let i = 0; i < NUMLEDS_HEADSET; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].headset[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].headset[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].headset[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(headsetChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(headsetChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(headsetChildren).eq(i).removeClass("border");
             }
         }
         var keypadChildren = $("#keypad-container").children();
-        for (let i = 0; i < NUMLEDS_KEYPAD; i++) {
+        for (let i = 0; i < NUMLEDS_KEYPAD; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].keypad[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].keypad[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].keypad[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(keypadChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(keypadChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(keypadChildren).eq(i).removeClass("border");
             }
         }
         var generalChildren = $("#general-container").children();
-        for (let i = 0; i < NUMLEDS_GENERAL; i++) {
+        for (let i = 0; i < NUMLEDS_GENERAL; i++)
+        {
             var r = dec2hex(FRAMES[selectedFrameIndex].general[i * 3]);
             var g = dec2hex(FRAMES[selectedFrameIndex].general[i * 3 + 1]);
             var b = dec2hex(FRAMES[selectedFrameIndex].general[i * 3 + 2]);
             var fullColor = r + "" + g + "" + b;
             $(generalChildren).eq(i).css("background-color", "#" + fullColor);
-            if (fullColor.toLowerCase() == "ffffff") {
+            if (fullColor.toLowerCase() == "ffffff")
+            {
                 $(generalChildren).eq(i).addClass("border");
-            } else {
+            } else
+            {
                 $(generalChildren).eq(i).removeClass("border");
             }
         }
         changed = true;
     }
 
-    function nextLed() {
-        if (selectedLEDIndex < NUM_LEDS[selectedLEDClass] - 1) {
+    function nextLed()
+    {
+        if (selectedLEDIndex < NUM_LEDS[selectedLEDClass] - 1)
+        {
             $(".led").removeClass("selected");
             selectedLEDIndex++;
             $("#" + selectedLEDClass + "-container :nth-child(" + (selectedLEDIndex + 1) + ")").addClass("selected");
         }
     }
 
-    function prevLed() {
-        if (selectedLEDIndex > 0) {
+    function prevLed()
+    {
+        if (selectedLEDIndex > 0)
+        {
             $(".led").removeClass("selected");
             selectedLEDIndex--;
             $("#" + selectedLEDClass + "-container :nth-child(" + (selectedLEDIndex + 1) + ")").addClass("selected");
         }
     }
 
-    $("#color").change(function () {
+    $("#color").change(function ()
+    {
         var val = $(this).val();
         $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).css("background-color", "#" + val);
         if (val.toLowerCase() == "ffffff")
@@ -569,8 +654,10 @@ $(document).ready(() => {
         changed = true;
     });
 
-    $(document).keydown(function (e) {
-        switch (e.which) {
+    $(document).keydown(function (e)
+    {
+        switch (e.which)
+        {
             case 37: // left
                 prevLed();
                 break;
