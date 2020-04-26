@@ -336,7 +336,6 @@ $(document).ready(() =>
 
     $("#export").click(() =>
     {
-        //console.error("Export unimplemented");
         var fileString = `2,${FRAMES.length}\n`
         FRAMES.forEach(frame =>
         {
@@ -353,7 +352,6 @@ $(document).ready(() =>
 
     $("#export-file").click(() =>
     {
-        console.error("Export unimplemented");
 
         $("#export").click();
 
