@@ -187,33 +187,43 @@ $(document).ready(() =>
 
     $("#new-frame").click(() =>
     {
-        FRAMES.splice(selectedFrameIndex + 1, 0, {});
+        FRAMES.splice(selectedFrameIndex + 1, 0,
+            {
+                keyboard: [],
+                strip: [],
+                mouse: [],
+                mousepad: [],
+                headset: [],
+                keypad: [],
+                general: []
+            });
+
         selectedFrameIndex++;
-        for (let i = 0; i < NUMLEDS_KEYBOARD.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_KEYBOARD * 3; i++)
         {
             FRAMES[selectedFrameIndex].keyboard.push(0); // 3 color channels
         }
-        for (let i = 0; i < NUMLEDS_STRIP.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_STRIP * 3; i++)
         {
             FRAMES[selectedFrameIndex].strip.push(0);
         }
-        for (let i = 0; i < NUMLEDS_MOUSE.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_MOUSE * 3; i++)
         {
             FRAMES[selectedFrameIndex].mouse.push(0);
         }
-        for (let i = 0; i < NUMLEDS_MOUSEPAD.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_MOUSEPAD * 3; i++)
         {
             FRAMES[selectedFrameIndex].mousepad.push(0);
         }
-        for (let i = 0; i < NUMLEDS_HEADSET.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_HEADSET * 3; i++)
         {
             FRAMES[selectedFrameIndex].headset.push(0);
         }
-        for (let i = 0; i < NUMLEDS_KEYPAD.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_KEYPAD * 3; i++)
         {
             FRAMES[selectedFrameIndex].keypad.push(0);
         }
-        for (let i = 0; i < NUMLEDS_GENERAL.length * 3; i++)
+        for (let i = 0; i < NUMLEDS_GENERAL * 3; i++)
         {
             FRAMES[selectedFrameIndex].general.push(0);
         }
