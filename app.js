@@ -246,6 +246,22 @@ $(document).ready(() => {
         a.click();*/
     });
 
+    $("#import-legacy").click(() => {
+        var input = document.createElement("input");
+        input.type = 'file';
+        input.click();
+
+        input.onchange = function() {
+            var reader = new FileReader();
+            reader.onload = function() {
+                importFramesLegacy( reader.result );
+            };
+            let file = input.files[0];
+            reader.readAsText(file);
+            $( '#project-name' ).val( file.name.split('.')[0] );
+        };
+    });
+
     $("#import").click(() => {
         console.error("Import unimplemented");
         /*var input = document.createElement("input");
@@ -263,7 +279,10 @@ $(document).ready(() => {
         };*/
     });
 
-    function importFrames(text) {
+    function importFramesLegacy(text) {
+
+        generateLEDS();
+
         let pattern = /^(\d+),(\d+)\r?\n((\d+,)*\d+)(\r?\n)?$/;
         let matches = text.match(pattern);
 
@@ -284,11 +303,54 @@ $(document).ready(() => {
             }
         }
 
-        NUMLEDS_STRIP = tempNumLeds;
-        setLed(NUMLEDS_STRIP);
+        if (tempNumLeds == 88) // keyboard
+        {
+            let i = 0;
+            tempFrames.forEach(frame => {
+                if (i == 0) 
+                {
+                    FRAMES[0].keyboard = frame;
+                } else 
+                {
+                    FRAMES.push(
+                    {
+                        keyboard: frame,
+                        strip: Array.apply(null, Array(NUMLEDS_STRIP*3)).map(Number.prototype.valueOf,0),
+                        mouse: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
+                        mousepad: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
+                        headset: Array.apply(null, Array(NUMLEDS_HEADSET*3)).map(Number.prototype.valueOf,0),
+                        keypad: Array.apply(null, Array(NUMLEDS_KEYPAD*3)).map(Number.prototype.valueOf,0),
+                        general: Array.apply(null, Array(NUMLEDS_GENERAL*3)).map(Number.prototype.valueOf,0),
+                    });
+                }
+                
+                i++;
+            });
+        } else if (tempNumLeds == 170) // strip
+        {
+            let i = 0;
+            tempFrames.forEach(frame => {
+                if (i == 0)
+                {
+                    FRAMES[0].strip = frame;
+                } else 
+                {
+                    FRAMES.push(
+                        {
+                            keyboard: Array.apply(null, Array(NUMLEDS_KEYBOARD*3)).map(Number.prototype.valueOf,0),
+                            strip: frame,
+                            mouse: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
+                            mousepad: Array.apply(null, Array(NUMLEDS_MOUSEPAD*3)).map(Number.prototype.valueOf,0),
+                            headset: Array.apply(null, Array(NUMLEDS_HEADSET*3)).map(Number.prototype.valueOf,0),
+                            keypad: Array.apply(null, Array(NUMLEDS_KEYPAD*3)).map(Number.prototype.valueOf,0),
+                            general: Array.apply(null, Array(NUMLEDS_GENERAL*3)).map(Number.prototype.valueOf,0),
+                        });
+                }
+                i++;
+            });
+        }
 
-        FRAMES = tempFrames;
-
+        
         generated = true;
         changed = false;
         selectedFrameIndex = 0;
