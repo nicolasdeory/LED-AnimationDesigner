@@ -240,12 +240,10 @@ $(document).ready(() => {
     $("#copy-strip-to-keyboard").click(() => {
         
         // reset keyboard
-        //FRAMES[selectedFrameIndex].keyboard = [];
         for(let i = 0; i < KEYBOARD_LAYOUT.length*3; i++) 
         {
             FRAMES[selectedFrameIndex].keyboard[i] = 0;
         }
-
         for (let i = 0; i < NUMLEDS_STRIP - 1; i++) 
         {
             const r = parseInt(FRAMES[selectedFrameIndex].strip[i*3 + 0]);
