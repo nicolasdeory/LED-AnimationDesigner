@@ -33,6 +33,7 @@
     width: 7px;
     height: 7px;
     margin-left: 1px;
+    user-select: none;
 }
 
 #strip-container 
