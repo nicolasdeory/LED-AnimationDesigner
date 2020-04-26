@@ -421,7 +421,7 @@ $(document).ready(() =>
             }
         }
 
-        if (tempNumLeds == 88) // keyboard
+        if (tempNumLeds == -1) // keyboard
         {
             let i = 0;
             tempFrames.forEach(frame =>
@@ -442,7 +442,6 @@ $(document).ready(() =>
                             general: Array.apply(null, Array(NUMLEDS_GENERAL * 3)).map(Number.prototype.valueOf, 0),
                         });
                 }
-
                 i++;
             });
         } else if (tempNumLeds == 170) // strip
