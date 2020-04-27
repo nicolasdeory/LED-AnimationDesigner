@@ -99,11 +99,11 @@
             <p>
                 Each frame is composed of 7 different comma-separated color byte arrays, in this order:
                 <br> - Keyboard (should be of length 88 keys + 17 numpad = 105)
-                <br> - LED Strip (should be of length 170)
+                <br> - LED Strip (must be of length 170)
                 <br> - Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
-                <br> - Mousepad (should be of length 15 - left to right order)
-                <br> - Headset (First color is left side, second color is right side)
-                <br> - 2D Keypad (5x4 array, row order starting in the top-left)
+                <br> - Mousepad (must be of length 16 - left to right order)
+                <br> - Headset (must be of length 2 - First color is left side, second color is right side)
+                <br> - 2D Keypad (must be of length 5x4 - 2D array, row order starting in the top-left)
                 <br> - General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
             </p>
         </div>
