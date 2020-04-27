@@ -383,8 +383,7 @@ $(document).ready(() =>
 
     $("#import").click(() =>
     {
-        console.error("Import unimplemented");
-        /*var input = document.createElement("input");
+        var input = document.createElement("input");
         input.type = 'file';
         input.click();
 
@@ -396,8 +395,104 @@ $(document).ready(() =>
             let file = input.files[0];
             reader.readAsText(file);
             $( '#project-name' ).val( file.name.split('.')[0] );
-        };*/
+        };
     });
+
+    function importFrames(text)
+    {
+        generateLEDS();
+
+        let pattern = /^(\d+),(\d+)\r?\n(((((\d+,)+\d);?)+\r?\n)+)$/;
+        let matches = text.match(pattern);
+
+        if (matches == null)
+        {
+            alert("Failed to read animation file. Make sure the file has a supported format.");
+            return;
+        }
+        
+        let formatVersion = matches[1];
+        if (formatVersion != "2") 
+        {
+            alert("Invalid file version");
+            return;
+        }
+        let numFrames = matches[2];
+        let frameStrings = matches[3].split('\n');
+        FRAMES = [];
+        
+        let error = false;
+
+        frameStrings.forEach(str =>
+        {
+            if (str == "") return;
+            var parts = str.split(";");
+            if (parts.length != 7)
+            {
+                alert("Error reading animation file. Frame doesn't have the correct format. (wrong parts)");
+                error = true;
+                return;
+            }
+            var object = {};
+
+            for(let i = 0; i < parts.length; i++)
+            {
+                let device = "";
+                let ledCount = 0;
+                switch(i)
+                {
+                    case 0:
+                        device = "keyboard";
+                        ledCount = 88;
+                        break;
+                    case 1:
+                        device = "strip";
+                        ledCount = 170;
+                        break;
+                    case 2:
+                        device = "mouse";
+                        ledCount = 16;
+                        break;
+                    case 3:
+                        device = "mousepad";
+                        ledCount = 16;
+                        break;
+                    case 4:
+                        device = "headset";
+                        ledCount = 2;
+                        break;
+                    case 5:
+                        device = "keypad";
+                        ledCount = 20;
+                        break;
+                    case 6:
+                        device = "general";
+                        ledCount = 5;
+                        break;
+                }
+                let tempFrames = parts[i].replace(";","").split(',');
+                
+                tempFrames = tempFrames.map((p) => +p);
+                if (tempFrames.length != ledCount * 3)
+                {
+                    alert("Error reading animation file. Frame doesn't have the correct format (wrong ledcount)");
+                    error = true;
+                    return;
+                }
+
+                object[device] = tempFrames;
+            }
+            FRAMES.push(object);
+        });
+        if (error) return;
+
+        generated = true;
+        changed = false;
+        selectedFrameIndex = 0;
+        selectedLEDIndex = 0;
+        updateLeds();
+        refreshFrameText();
+    }
 
     function importFramesLegacy(text)
     {
