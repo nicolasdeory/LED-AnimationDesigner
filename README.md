@@ -22,6 +22,7 @@ Move the cursor above the buttons to see the keys.
 - **Shift Right**: Moves the led colors one to the right. The left-most led will turn black.
 - **Copy Strip to Keyboard**: Copies the colors from the LED strip to the keyboard.
 - **Copy Strip to Mousepad**: Copies the colors from the LED strip to the mousepad.
+
 File Import/Export:
 - **Import from file**: Imports an animation.
 - **Import legacy file**: Imports an animation with the old legacy format.
