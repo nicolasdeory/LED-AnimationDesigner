@@ -3,9 +3,8 @@ A simple web interface that simplifies making animations for LED strips and keyb
 [Try it here.](https://nicolasdeory.github.io/LED-AnimationDesigner/)
 
 ## Usage
-Specify the number of LEDs you wish to make an animation for. A black LED strip will appear.
-Click on any LED to select it, and choose a color for the light with the color picker.
-**If you want to make animations designed for keyboards, set the LED count to -1.**
+Click "Start", and you will be able to edit individual LEDs by clicking on them.
+Click "Export to File" when you are done editing the animation.
 
 ## Keyboard control
 Press the left and right arrow keys to change the selected LED.
@@ -21,19 +20,32 @@ Move the cursor above the buttons to see the keys.
 - **Delete Frame**: Deletes the selected frame.
 - **Shift Left**: Moves the led colors one to the left. The right-most led will turn black.
 - **Shift Right**: Moves the led colors one to the right. The left-most led will turn black.
-- **EXPORT**: Generates the animation code and displays it in the output textarea.
+- **Copy Strip to Keyboard**: Copies the colors from the LED strip to the keyboard.
+- **Copy Strip to Mousepad**: Copies the colors from the LED strip to the mousepad.
+
+- **Import from file**: Imports an animation.
+- **Import legacy file**: Imports an animation with the old legacy format.
+- **Export to file**: Generates the animation code and exports it to a file with the specified name.
+- **Export**: Generates the animation code and displays it in the output textarea.
 
 ## Export Format
-The format is similar to a DMX color array.
-The first line indicates the following information:
-- LED count
-- Frame count
+The first line is a number that indicates the file format version (current = 2), and the number of animation frames.
+Each of the following lines is an animation frame. The different frame data arrays are separated by a semicolon.
 
-The following data is a byte array containing FRAME_COUNT * NUM_LEDS * 3 color channel bytes (RGB order, starting by LED 0).
-A two-frame animation for a 5 LED strip will look like this:
+Each frame is composed of 7 different comma-separated color byte (0-255) arrays, in this order:
+- Keyboard (should be of length 88 keys + 17 numpad = 105)
+- LED Strip (must be of length 170)
+- Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
+- Mousepad (must be of length 16 - left to right order)
+- Headset (must be of length 2 - First color is left side, second color is right side)
+- 2D Keypad (must be of length 5x4 - 2D array, row order starting in the top-left)
+- General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
+
+An example animation file might look like this:
 ```
-5,2
-0,0,0,59,255,62,255,51,210,0,0,0,0,0,0,0,0,0,0,0,0,59,255,62,255,51,210,0,0,0
+VERSION,NUM_FRAMES
+RGB_ARRAY_KEYBOARD;RGB_ARRAY_STRIP;RGB_ARRAY_MOUSE;RGB_ARRAY_MOUSEPAD;RGB_ARRAY_HEADSET;RGB_ARRAY_KEYPAD;RGB_ARRAY_GENERAL\n
+...
 ```
 ![](readme/demo-anim.gif)
 
