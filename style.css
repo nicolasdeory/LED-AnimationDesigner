@@ -1,3 +1,8 @@
+#setup button {
+    width: 100px;
+    height: 40px;
+}
+
 #led-container {
     display: flex;
     justify-content: center;
@@ -5,11 +10,22 @@
     margin-top: 50px;
 }
 
-.keyboard-layout {
-    position: relative;
+.animation-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+.led-section-container {
     background-origin: padding-box;
     margin-left: 100px;
-    height: 150px;
+}
+
+.led-container {
+    position: relative;
+    margin-top: 25px;
+    margin-bottom: 40px;
 }
 
 .led {
@@ -17,11 +33,23 @@
     width: 7px;
     height: 7px;
     margin-left: 1px;
+    user-select: none;
+}
+
+#strip-container 
+{
+    display: flex;
+    flex-direction: row;
 }
 
 .led.small {
     width: 5px;
     height: 5px;
+}
+
+.led.big {
+    width: 40px;
+    height: 40px;
 }
 
 .led.key {
@@ -31,6 +59,11 @@
     margin:5px;
     font-size: 5pt;
     color: white;
+    outline: solid 1px;
+}
+
+.led.keyboard.key {
+    outline: none;
 }
 
 .led.selected {

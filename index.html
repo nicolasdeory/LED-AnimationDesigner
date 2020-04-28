@@ -9,20 +9,53 @@
         <meta charset="utf-8">
         <script src="jscolor.js"></script>
         <script src="keyboard-layout.js"></script>
+        <script src="mouse-layout.js"></script>
+        <script src="mousepad-layout.js"></script>
+        <script src="headset-layout.js"></script>
+        <script src="keypad-layout.js"></script>
+        <script src="general-leds-layout.js"></script>
         <script src="app.js"></script>
     </head>
     <body>
         <form id="setup">
-            <label for="numLeds">LED Count</label>
-            <input name="numLeds" type="number"/>
             <button>Start</button>
         </form>
-        <div class="pre-defined-setup">
-            Pre defined
-            <button data-value="-1"> Keyboard </button>
-            <button data-value="170"> Standard Strip Size </button>
+        
+        <div class="led-section-container">
+            <p>LED Strip</p>
+            <div class="led-container" id="strip-container"></div>
         </div>
-        <div id="led-container"></div>
+
+        <div class="animation-container">
+            <div class="led-section-container">
+                <p>Keyboard</p>
+                <div class="led-container" id="keyboard-container"></div>
+            </div>
+            <div class="led-section-container">
+                <p>Mouse</p>
+                <div class="led-container" id="mouse-container"></div>
+            </div>
+            <div class="led-section-container">
+                <p>Mousepad</p>
+                <div class="led-container" id="mousepad-container"></div>
+            </div>
+            
+        </div>
+        <div class="animation-container">
+            <div class="led-section-container">
+                <p>Headset</p>
+                <div class="led-container" id="headset-container"></div>
+            </div>
+            <div class="led-section-container">
+                <p>Keypad</p>
+                <div class="led-container" id="keypad-container"></div>
+            </div>
+            <div class="led-section-container">
+                <p>General LEDs</p>
+                <div class="led-container" id="general-container"></div>
+            </div>
+        </div>
+
         <label for="color">Color</label>
         <input class="jscolor" id="color" value="000000"/>
         <div id="frame" class="info">Frame: 1 / 1</div>
@@ -33,10 +66,13 @@
         <button id="delete-frame" title="Backspace">Delete Frame</button>
         <button id="shift-left" title="Ctrl + Left">Shift Left</button>
         <button id="shift-right" title="Ctrl + Right">Shift Right</button>
+        <button id="copy-strip-to-keyboard">Copy Strip -> Keyboard</button>
+        <button id="copy-strip-to-mousepad">Copy Strip -> Mousepad</button>
 
         <br><br><hr><br>
 
         <button id="import">Import from file</button>
+        <button id="import-legacy">Import legacy file</button>
         <button id="export-file">Export to file</button>
         <button id="export" title="Ctrl + Enter">EXPORT</button>
 
@@ -50,9 +86,27 @@
             <textarea readonly id="exported-anim"></textarea>
         </div>
         <div>
-            <p>Specification</p>
-            <p>The prefix is a line that contains the number of leds for the animation and the number of animation frames.
-                <br> What follows is a byte array formed by the three color channels of each led, for each frame.
+            <p><b>What are General-purpose LEDs?</b></p>
+            <p>They are used for devices that don't fall into any of the other categories.
+                <br> For example, gaming chairs, PC cases or monitors.
+                <br> The main light will be used to set the main overall moodlight (e.g. used for things that can only show one color at a time).
+                <br> The four secondary lights will be used for auxiliary lighting effects (from left to right).
+                <br> <b>Be careful animating these LEDs.</b> Only make dynamic effects on special situations (10% of gameplay). <a href="https://developer.razer.com/works-with-chroma/chroma-link-guide/">More info here</a>
+            </p>
+            <p><b>Specification</b></p>
+            <p>
+                The first line is a number that indicates the file format version (current = 2), and the number of animation frames.
+                <br> Each of the following lines is an animation frame. The different frame data arrays are separated by a semicolon.
+            </p>
+            <p>
+                Each frame is composed of 7 different comma-separated color byte arrays, in this order:
+                <br> - Keyboard (should be of length 88 keys + 17 numpad = 105)
+                <br> - LED Strip (must be of length 170)
+                <br> - Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
+                <br> - Mousepad (must be of length 16 - left to right order)
+                <br> - Headset (must be of length 2 - First color is left side, second color is right side)
+                <br> - 2D Keypad (must be of length 5x4 - 2D array, row order starting in the top-left)
+                <br> - General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
             </p>
         </div>
     </body>
