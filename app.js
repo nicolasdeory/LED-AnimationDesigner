@@ -35,7 +35,7 @@ $(document).ready(() =>
 {
 
 
-    const NUMLEDS_KEYBOARD = KEYBOARD_LAYOUT.length; // TODO: ADD NUMPAD
+    const NUMLEDS_KEYBOARD = KEYBOARD_LAYOUT.length;
     const NUMLEDS_STRIP = 170;
     const NUMLEDS_MOUSE = MOUSE_LAYOUT.length;
     const NUMLEDS_MOUSEPAD = MOUSEPAD_LAYOUT.length;
@@ -301,7 +301,7 @@ $(document).ready(() =>
             const b = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 2]);
             const stripColorHex = dec2hex(r) + dec2hex(g) + dec2hex(b);
             if (stripColorHex == '000000') continue;
-            const mappedX = parseInt(map(i, 0, NUMLEDS_STRIP, 0, 19), 10); // 19 is kb width w/o numpad
+            const mappedX = parseInt(map(i, 0, NUMLEDS_STRIP, 0, 22), 10); // 19 is kb width w/o numpad
             for (let j = 0; j < 6; j++)
             {
                 const key = pointToKey(mappedX, j);
@@ -326,10 +326,6 @@ $(document).ready(() =>
                     FRAMES[selectedFrameIndex].keyboard[key * 3 + 2] = b;
                 }
             }
-
-            /*FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
-            FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
-            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]*/
         }
         updateLeds();
     });
@@ -369,10 +365,6 @@ $(document).ready(() =>
                 FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 1] = g;
                 FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 2] = b;
             }
-
-            /*FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
-            FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
-            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]*/
         }
         updateLeds();
     });
@@ -486,7 +478,7 @@ $(document).ready(() =>
                 {
                     case 0:
                         device = "keyboard";
-                        ledCount = 88;
+                        ledCount = 109;
                         break;
                     case 1:
                         device = "strip";
