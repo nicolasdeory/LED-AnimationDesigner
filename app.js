@@ -327,9 +327,52 @@ $(document).ready(() =>
                 }
             }
 
-            FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
+            /*FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
             FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
-            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]
+            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]*/
+        }
+        updateLeds();
+    });
+
+    $("#copy-strip-to-mousepad").click(() =>
+    {
+
+        // reset mousepad
+        for (let i = 0; i < MOUSEPAD_LAYOUT.length * 3; i++)
+        {
+            FRAMES[selectedFrameIndex].mousepad[i] = 0;
+        }
+        for (let i = 0; i < NUMLEDS_STRIP - 1; i++)
+        {
+            const r = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 0]);
+            const g = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 1]);
+            const b = parseInt(FRAMES[selectedFrameIndex].strip[i * 3 + 2]);
+            const stripColorHex = dec2hex(r) + dec2hex(g) + dec2hex(b);
+            if (stripColorHex == '000000') continue;
+            const mappedX = parseInt(map(i, 0, NUMLEDS_STRIP, 0, NUMLEDS_MOUSEPAD), 10);
+            const mr = FRAMES[selectedFrameIndex].keyboard[mappedX * 3 + 0];
+            const mg = FRAMES[selectedFrameIndex].keyboard[mappedX * 3 + 1];
+            const mb = FRAMES[selectedFrameIndex].keyboard[mappedX * 3 + 2];
+            const mColorHex = dec2hex(mr) + dec2hex(mg) + dec2hex(mb);
+            if (mColorHex == '000000')
+            {
+                FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 0] = r;
+                FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 1] = g;
+                FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 2] = b;
+            } else
+            {
+                // in order for average to work, it needs to work on HSV not RGB
+                /* FRAMES[selectedFrameIndex].keyboard[key*3 + 0] = parseInt((r + kr) / 2, 10);
+                 FRAMES[selectedFrameIndex].keyboard[key*3 + 1] = parseInt((b + kb) / 2, 10);
+                 FRAMES[selectedFrameIndex].keyboard[key*3 + 2] = parseInt((g + kg) / 2, 10);*/
+                FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 0] = r;
+                FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 1] = g;
+                FRAMES[selectedFrameIndex].mousepad[mappedX * 3 + 2] = b;
+            }
+
+            /*FRAMES[selectedFrameIndex].strip[i * 3 + 0] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 0]
+            FRAMES[selectedFrameIndex].strip[i * 3 + 1] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 1]
+            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = FRAMES[selectedFrameIndex].strip[(i + 1) * 3 + 2]*/
         }
         updateLeds();
     });
@@ -492,6 +535,7 @@ $(document).ready(() =>
         selectedLEDIndex = 0;
         updateLeds();
         refreshFrameText();
+        
     }
 
     function importFramesLegacy(text)
