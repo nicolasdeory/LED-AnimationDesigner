@@ -823,7 +823,7 @@ $(document).ready(() =>
                 prevFrame();
                 break;
 
-            case 8: // Backspace
+            case 46: // Delete
                 $("#delete-frame").click();
                 break;
 
