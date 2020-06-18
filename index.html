@@ -75,18 +75,24 @@
         <button id="import-legacy">Import legacy file</button>
         <button id="export-file">Export to file</button>
         <button id="export" title="Ctrl + Enter">EXPORT</button>
-        <button id="Copy-to-Clipboard">Copy To Clipboard</button>
+		<button onclick="myFunction()">Copy To Clipboard</button>
 
         <div class="final-section">
             <p>Project Name</p>
-            <input id="project-name" value="led animation"></input>
+            <input id="project-name" value="led animation"><input>
         </div>
 
         <div class="final-section">
             <p>DMX Animation Code</p>
             <textarea readonly id="exported-anim"></textarea>
         </div>
-        <div>
+    <script>function myFunction() {
+	var copyText = document.getElementById("myInput");
+	copyText.select();
+	copyText.setSelectionRange(0,99999)
+	Document.execCommand("copy");
+	alert("Text copied")</script>    
+	<div>
             <p><b>What are General-purpose LEDs?</b></p>
             <p>They are used for devices that don't fall into any of the other categories.
                 <br> For example, gaming chairs, PC cases or monitors.
