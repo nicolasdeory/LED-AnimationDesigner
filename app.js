@@ -382,7 +382,7 @@ $(document).ready(() =>
             fileString += frame.keypad.toString() + ";";
             fileString += frame.general.toString() + "\n";
         });
-        $("#exported-anim").val(fileString);
+        $("#exportedanim").val(fileString);
     });
 
     $("#export-file").click(() =>
@@ -390,7 +390,7 @@ $(document).ready(() =>
 
         $("#export").click();
 
-        var blob = new Blob([$("#exported-anim").val()], { type: 'text/plain' });
+        var blob = new Blob([$("#exportedanim").val()], { type: 'text/plain' });
         var a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
         a.setAttribute("download", $('#project-name').val() + '.txt');
