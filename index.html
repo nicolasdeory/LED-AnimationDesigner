@@ -75,7 +75,7 @@
         <button id="import-legacy">Import legacy file</button>
         <button id="export-file">Export to file</button>
         <button id="export" title="Ctrl + Enter">EXPORT</button>
-		<button id="btnCopy">Copy To Clipboard</button>
+		<button id="copy-to-clipboard">Copy To Clipboard</button>
 
         <div class="final-section">
             <p>Project Name</p>
@@ -84,22 +84,10 @@
 
         <div class="final-section">
             <p>DMX Animation Code</p>
-            <textarea style="user-select: all" readonly id="exportedanim"></textarea>
+            <textarea style="user-select: all" readonly id="exported-anim"></textarea>
         </div>
-		
-        <script type="text/javascript">
-    const exportedanim = document.getElementById("exportedanim");
-    const btnCopy = document.getElementById("btnCopy");
-
-    btnCopy.onclick = function() {
-        // Step 1: Select the Text
-        exportedanim.select();
-        // Step 2: Copying the Text
-        document.execCommand("Copy");
-        
-    }  </script>    
-	<div>
-            <p><b>What are General-purpose LEDs?</b></p>
+        <div>
+            <p><b>What areGeneral-purpose LEDs?</b></p>
             <p>They are used for devices that don't fall into any of the other categories.
                 <br> For example, gaming chairs, PC cases or monitors.
                 <br> The main light will be used to set the main overall moodlight (e.g. used for things that can only show one color at a time).
