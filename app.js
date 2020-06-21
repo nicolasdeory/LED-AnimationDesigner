@@ -164,7 +164,47 @@ $(document).ready(() =>
         $("#general-container").css("width", GENERAL_LEDS_LAYOUT_WIDTH + "px");
         $("#general-container").css("height", GENERAL_LEDS_LAYOUT_HEIGHT + "px");
 
-        $(".led").click(onLedClicked);
+        //$(".led").click(onLedClicked);
+
+        var isMouseBeingDragged = false; // pencil
+        $(document).mousedown(() =>
+        {
+            isMouseBeingDragged = true;
+        });
+
+        $(document).mousemove((e) =>
+        {
+            if (!isMouseBeingDragged)
+                return;
+            
+            var x = e.clientX;
+            var y = e.clientY;
+            var elementMouseIsOver = document.elementFromPoint(x, y);
+            if (elementMouseIsOver && $(elementMouseIsOver).hasClass("led"))
+            {
+                var val = $("#color").val();
+                selectedLEDClass = $(elementMouseIsOver).parent().attr("id").replace("-container","");
+                selectedLEDIndex = $("#" + selectedLEDClass + "-container").children().index(elementMouseIsOver);
+                $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).css("background-color", "#" + val);
+                if (val.toLowerCase() == "ffffff")
+                    $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).addClass("border");
+                else $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).removeClass("border");
+                var r = hex2dec(val[0] + val[1]);
+                var g = hex2dec(val[2] + val[3]);
+                var b = hex2dec(val[4] + val[5]);
+                FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 0] = r;
+                FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 1] = g;
+                FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 2] = b;
+                updateLeds();
+                changed = true;
+            }
+        });
+
+        $(document).mouseup(() =>
+        {
+            isMouseBeingDragged = false;
+        });
+
         $(".led").click(function (e) {
             if ( e.ctrlKey ) {
                 let last_color = $("#color").val();
