@@ -75,18 +75,19 @@
         <button id="import-legacy">Import legacy file</button>
         <button id="export-file">Export to file</button>
         <button id="export" title="Ctrl + Enter">EXPORT</button>
+		<button id="copy-to-clipboard">Copy To Clipboard</button>
 
         <div class="final-section">
             <p>Project Name</p>
-            <input id="project-name" value="led animation"></input>
+            <input id="project-name" value="led animation">
         </div>
 
         <div class="final-section">
             <p>DMX Animation Code</p>
-            <textarea readonly id="exported-anim"></textarea>
+            <textarea style="user-select: all" readonly id="exported-anim"></textarea>
         </div>
         <div>
-            <p><b>What are General-purpose LEDs?</b></p>
+            <p><b>What areGeneral-purpose LEDs?</b></p>
             <p>They are used for devices that don't fall into any of the other categories.
                 <br> For example, gaming chairs, PC cases or monitors.
                 <br> The main light will be used to set the main overall moodlight (e.g. used for things that can only show one color at a time).

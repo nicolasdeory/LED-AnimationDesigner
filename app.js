@@ -525,6 +525,15 @@ $(document).ready(() =>
         };
     });
 
+    $("#copy-to-clipboard").click(() =>
+    {
+        // Step 1: Select the Text
+        $("#exported-anim").select();
+        // Step 2: Copying the Text
+        document.execCommand("copy");
+    });
+
+
     function importFrames(text)
     {
         generateLEDS();
