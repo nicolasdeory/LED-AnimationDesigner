@@ -12,6 +12,7 @@ Press the up and down arrow keys to change the current frame.
 Double click on frame to apply the selected color.
 Ctrl + click on frame to clear.
 Move the cursor above the buttons to see the keys.
+You can drag your mouse over the LEDs to draw the selected color.
 
 ## Buttons
 - **Next Frame / Previous Frame**: Changes the selected animation frame.
@@ -28,6 +29,7 @@ File Import/Export:
 - **Import legacy file**: Imports an animation with the old legacy format.
 - **Export to file**: Generates the animation code and exports it to a file with the specified name.
 - **Export**: Generates the animation code and displays it in the output textarea.
+- **Copy to Clipboard**: Copies the exported animation text to the clipboard.
 
 ## Export Format
 The first line is a number that indicates the file format version (current = 2), and the number of animation frames.
