@@ -164,7 +164,47 @@ $(document).ready(() =>
         $("#general-container").css("width", GENERAL_LEDS_LAYOUT_WIDTH + "px");
         $("#general-container").css("height", GENERAL_LEDS_LAYOUT_HEIGHT + "px");
 
-        $(".led").click(onLedClicked);
+        //$(".led").click(onLedClicked);
+
+        var isMouseBeingDragged = false; // pencil
+        $(document).mousedown(() =>
+        {
+            isMouseBeingDragged = true;
+        });
+
+        $(document).mousemove((e) =>
+        {
+            if (!isMouseBeingDragged)
+                return;
+            
+            var x = e.clientX;
+            var y = e.clientY;
+            var elementMouseIsOver = document.elementFromPoint(x, y);
+            if (elementMouseIsOver && $(elementMouseIsOver).hasClass("led"))
+            {
+                var val = $("#color").val();
+                selectedLEDClass = $(elementMouseIsOver).parent().attr("id").replace("-container","");
+                selectedLEDIndex = $("#" + selectedLEDClass + "-container").children().index(elementMouseIsOver);
+                $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).css("background-color", "#" + val);
+                if (val.toLowerCase() == "ffffff")
+                    $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).addClass("border");
+                else $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).removeClass("border");
+                var r = hex2dec(val[0] + val[1]);
+                var g = hex2dec(val[2] + val[3]);
+                var b = hex2dec(val[4] + val[5]);
+                FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 0] = r;
+                FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 1] = g;
+                FRAMES[selectedFrameIndex][selectedLEDClass][selectedLEDIndex * 3 + 2] = b;
+                updateLeds();
+                changed = true;
+            }
+        });
+
+        $(document).mouseup(() =>
+        {
+            isMouseBeingDragged = false;
+        });
+
         $(".led").click(function (e) {
             if ( e.ctrlKey ) {
                 let last_color = $("#color").val();
@@ -369,6 +409,58 @@ $(document).ready(() =>
         updateLeds();
     });
 
+    $("#fill-everything").click(() =>
+    {
+        var val = $("#color").val();
+        var r = hex2dec(val[0] + val[1]);
+        var g = hex2dec(val[2] + val[3]);
+        var b = hex2dec(val[4] + val[5]);
+
+        for (let i = 0; i < NUMLEDS_KEYBOARD; i++)
+        {
+            FRAMES[selectedFrameIndex].keyboard[i*3] = r;
+            FRAMES[selectedFrameIndex].keyboard[i*3+1] = g;
+            FRAMES[selectedFrameIndex].keyboard[i*3+2] = b;
+        }
+        for (let i = 0; i < NUMLEDS_STRIP; i++)
+        {
+            FRAMES[selectedFrameIndex].strip[i*3] = r;
+            FRAMES[selectedFrameIndex].strip[i*3+1] = g;
+            FRAMES[selectedFrameIndex].strip[i*3+2] = b;
+        }
+        for (let i = 0; i < NUMLEDS_MOUSE; i++)
+        {
+            FRAMES[selectedFrameIndex].mouse[i*3] = r;
+            FRAMES[selectedFrameIndex].mouse[i*3+1] = g;
+            FRAMES[selectedFrameIndex].mouse[i*3+2] = b;
+        }
+        for (let i = 0; i < NUMLEDS_MOUSEPAD; i++)
+        {
+            FRAMES[selectedFrameIndex].mousepad[i*3] = r;
+            FRAMES[selectedFrameIndex].mousepad[i*3+1] = g;
+            FRAMES[selectedFrameIndex].mousepad[i*3+2] = b;
+        }
+        for (let i = 0; i < NUMLEDS_HEADSET; i++)
+        {
+            FRAMES[selectedFrameIndex].headset[i*3] = r;
+            FRAMES[selectedFrameIndex].headset[i*3+1] = g;
+            FRAMES[selectedFrameIndex].headset[i*3+2] = b;
+        }
+        for (let i = 0; i < NUMLEDS_KEYPAD; i++)
+        {
+            FRAMES[selectedFrameIndex].keypad[i*3] = r;
+            FRAMES[selectedFrameIndex].keypad[i*3+1] = g;
+            FRAMES[selectedFrameIndex].keypad[i*3+2] = b;
+        }
+        for (let i = 0; i < NUMLEDS_GENERAL; i++)
+        {
+            FRAMES[selectedFrameIndex].general[i*3] = r;
+            FRAMES[selectedFrameIndex].general[i*3+1] = g;
+            FRAMES[selectedFrameIndex].general[i*3+2] = b;
+        }
+        updateLeds();
+    });
+
     $("#export").click(() =>
     {
         var fileString = `2,${FRAMES.length}\n`
@@ -432,6 +524,15 @@ $(document).ready(() =>
             $( '#project-name' ).val( file.name.split('.')[0] );
         };
     });
+
+    $("#copy-to-clipboard").click(() =>
+    {
+        // Step 1: Select the Text
+        $("#exported-anim").select();
+        // Step 2: Copying the Text
+        document.execCommand("copy");
+    });
+
 
     function importFrames(text)
     {
@@ -851,8 +952,6 @@ $(document).ready(() =>
         }
         e.preventDefault(); // prevent the default action (scroll / move caret)
     });
-
-
 
 });
 
