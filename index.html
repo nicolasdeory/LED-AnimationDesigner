@@ -59,20 +59,23 @@
         <label for="color">Color</label>
         <input class="jscolor" id="color" value="000000"/>
 
-        <p>Color Correction</p>
-        <label for="hue-shift">Hue Shift</label>
+        <p>Color Correction
+            <br>The corrections are additive (e.g. a saturation of 50 will add 50 to the saturation of every color)
+        </p>
+        <label for="hue-shift" id="hue-label">Hue Shift (-180 ... 180)</label>
         <div class="slidecontainer">
             <input type="range" min="-180" max="180" value="0" class="slider" id="hue-shift">
         </div>
-        <label for="saturation">Saturation</label>
+        <label for="saturation" id="saturation-label">Saturation (-50 ... 50)</label>
         <div class="slidecontainer">
-            <input type="range" min="0" max="100" value="50" class="slider" id="saturation">
+            <input type="range" min="-50" max="50" value="0" class="slider" id="saturation">
         </div>
-        <label for="luminosity">Luminosity</label>
+        <label for="luminosity" id="luminosity-label">Luminosity (-50 ... 50)</label>
         <div class="slidecontainer">
-            <input type="range" min="0" max="100" value="50" class="slider" id="luminosity">
+            <input type="range" min="-50" max="50" value="0" class="slider" id="luminosity">
         </div>
         <button id="apply-cc">Apply CC</button>
+        <button id="reset-cc">Reset Sliders</button>
         <br><br>
         <div id="frame" class="info">Frame: 1 / 1</div>
         <button id="prev-frame" title="Arrow Down">Previous Frame</button>
@@ -103,7 +106,7 @@
             <textarea style="user-select: all" readonly id="exported-anim"></textarea>
         </div>
         <div>
-            <p><b>What areGeneral-purpose LEDs?</b></p>
+            <p><b>What are General-purpose LEDs?</b></p>
             <p>They are used for devices that don't fall into any of the other categories.
                 <br> For example, gaming chairs, PC cases or monitors.
                 <br> The main light will be used to set the main overall moodlight (e.g. used for things that can only show one color at a time).

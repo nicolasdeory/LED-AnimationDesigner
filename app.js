@@ -21,26 +21,30 @@ function dec2hex(dec)
  * @param   {number}  l       The lightness
  * @return  {Array}           The RGB representation
  */
-function hslToRgb(h, s, l){
+function hslToRgb(h, s, l)
+{
     var r, g, b;
 
-    if(s == 0){
+    if (s == 0)
+    {
         r = g = b = l; // achromatic
-    }else{
-        var hue2rgb = function hue2rgb(p, q, t){
-            if(t < 0) t += 1;
-            if(t > 1) t -= 1;
-            if(t < 1/6) return p + (q - p) * 6 * t;
-            if(t < 1/2) return q;
-            if(t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+    } else
+    {
+        var hue2rgb = function hue2rgb(p, q, t)
+        {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1 / 6) return p + (q - p) * 6 * t;
+            if (t < 1 / 2) return q;
+            if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
             return p;
         }
 
         var q = l < 0.5 ? l * (1 + s) : l + s - l * s;
         var p = 2 * l - q;
-        r = hue2rgb(p, q, h + 1/3);
+        r = hue2rgb(p, q, h + 1 / 3);
         g = hue2rgb(p, q, h);
-        b = hue2rgb(p, q, h - 1/3);
+        b = hue2rgb(p, q, h - 1 / 3);
     }
 
     return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
@@ -57,17 +61,21 @@ function hslToRgb(h, s, l){
  * @param   {number}  b       The blue color value
  * @return  {Array}           The HSL representation
  */
-function rgbToHsl(r, g, b){
+function rgbToHsl(r, g, b)
+{
     r /= 255, g /= 255, b /= 255;
     var max = Math.max(r, g, b), min = Math.min(r, g, b);
     var h, s, l = (max + min) / 2;
 
-    if(max == min){
+    if (max == min)
+    {
         h = s = 0; // achromatic
-    }else{
+    } else
+    {
         var d = max - min;
         s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-        switch(max){
+        switch (max)
+        {
             case r: h = (g - b) / d + (g < b ? 6 : 0); break;
             case g: h = (b - r) / d + 2; break;
             case b: h = (r - g) / d + 4; break;
@@ -77,6 +85,38 @@ function rgbToHsl(r, g, b){
 
     return [h, s, l];
 }
+
+/**
+ * Applies a HSL shift to the given RGB values
+ * Input RGB must be between 0 and 255
+ * 
+ * Input HSL must be between -0.5 and 0.5
+ * 
+ * @returns [newR, newG, newB] between 0 and 255
+ */
+function applyCC(in_r, in_g, in_b, in_h, in_s, in_l)
+{
+    let hsl = rgbToHsl(in_r, in_g, in_b);
+    let newH = hsl[0] + in_h;
+    let newS = hsl[1] + in_s;
+    let newL = hsl[2] + in_l;
+
+    if (newH > 1)
+        newH = 1
+    if (newH < 0)
+        newH = 0
+    if (newS > 1)
+        newS = 1
+    if (newS < 0)
+        newS = 0
+    if (newL > 1)
+        newL = 1
+    if (newL < 0)
+        newL = 0
+
+    return hslToRgb(newH, newS, newL)
+}
+
 
 function map(val, in_min, in_max, out_min, out_max)
 {
@@ -244,14 +284,14 @@ $(document).ready(() =>
         {
             if (!isMouseBeingDragged)
                 return;
-            
+
             var x = e.clientX;
             var y = e.clientY;
             var elementMouseIsOver = document.elementFromPoint(x, y);
             if (elementMouseIsOver && $(elementMouseIsOver).hasClass("led"))
             {
                 var val = $("#color").val();
-                selectedLEDClass = $(elementMouseIsOver).parent().attr("id").replace("-container","");
+                selectedLEDClass = $(elementMouseIsOver).parent().attr("id").replace("-container", "");
                 selectedLEDIndex = $("#" + selectedLEDClass + "-container").children().index(elementMouseIsOver);
                 $("#" + selectedLEDClass + "-container").children().eq(selectedLEDIndex).css("background-color", "#" + val);
                 if (val.toLowerCase() == "ffffff")
@@ -273,15 +313,17 @@ $(document).ready(() =>
             isMouseBeingDragged = false;
         });
 
-        $(".led").click(function (e) {
-            if ( e.ctrlKey ) {
+        $(".led").click(function (e)
+        {
+            if (e.ctrlKey)
+            {
                 let last_color = $("#color").val();
                 $("#color").val('000000').change();
                 $("#color").val(last_color);
             }
-        }); 
+        });
         $(".led").dblclick(() => $("#color").change());
-        
+
         generated = true;
         changed = false;
         selectedFrameIndex = 0;
@@ -486,47 +528,192 @@ $(document).ready(() =>
 
         for (let i = 0; i < NUMLEDS_KEYBOARD; i++)
         {
-            FRAMES[selectedFrameIndex].keyboard[i*3] = r;
-            FRAMES[selectedFrameIndex].keyboard[i*3+1] = g;
-            FRAMES[selectedFrameIndex].keyboard[i*3+2] = b;
+            FRAMES[selectedFrameIndex].keyboard[i * 3] = r;
+            FRAMES[selectedFrameIndex].keyboard[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].keyboard[i * 3 + 2] = b;
         }
         for (let i = 0; i < NUMLEDS_STRIP; i++)
         {
-            FRAMES[selectedFrameIndex].strip[i*3] = r;
-            FRAMES[selectedFrameIndex].strip[i*3+1] = g;
-            FRAMES[selectedFrameIndex].strip[i*3+2] = b;
+            FRAMES[selectedFrameIndex].strip[i * 3] = r;
+            FRAMES[selectedFrameIndex].strip[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].strip[i * 3 + 2] = b;
         }
         for (let i = 0; i < NUMLEDS_MOUSE; i++)
         {
-            FRAMES[selectedFrameIndex].mouse[i*3] = r;
-            FRAMES[selectedFrameIndex].mouse[i*3+1] = g;
-            FRAMES[selectedFrameIndex].mouse[i*3+2] = b;
+            FRAMES[selectedFrameIndex].mouse[i * 3] = r;
+            FRAMES[selectedFrameIndex].mouse[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].mouse[i * 3 + 2] = b;
         }
         for (let i = 0; i < NUMLEDS_MOUSEPAD; i++)
         {
-            FRAMES[selectedFrameIndex].mousepad[i*3] = r;
-            FRAMES[selectedFrameIndex].mousepad[i*3+1] = g;
-            FRAMES[selectedFrameIndex].mousepad[i*3+2] = b;
+            FRAMES[selectedFrameIndex].mousepad[i * 3] = r;
+            FRAMES[selectedFrameIndex].mousepad[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].mousepad[i * 3 + 2] = b;
         }
         for (let i = 0; i < NUMLEDS_HEADSET; i++)
         {
-            FRAMES[selectedFrameIndex].headset[i*3] = r;
-            FRAMES[selectedFrameIndex].headset[i*3+1] = g;
-            FRAMES[selectedFrameIndex].headset[i*3+2] = b;
+            FRAMES[selectedFrameIndex].headset[i * 3] = r;
+            FRAMES[selectedFrameIndex].headset[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].headset[i * 3 + 2] = b;
         }
         for (let i = 0; i < NUMLEDS_KEYPAD; i++)
         {
-            FRAMES[selectedFrameIndex].keypad[i*3] = r;
-            FRAMES[selectedFrameIndex].keypad[i*3+1] = g;
-            FRAMES[selectedFrameIndex].keypad[i*3+2] = b;
+            FRAMES[selectedFrameIndex].keypad[i * 3] = r;
+            FRAMES[selectedFrameIndex].keypad[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].keypad[i * 3 + 2] = b;
         }
         for (let i = 0; i < NUMLEDS_GENERAL; i++)
         {
-            FRAMES[selectedFrameIndex].general[i*3] = r;
-            FRAMES[selectedFrameIndex].general[i*3+1] = g;
-            FRAMES[selectedFrameIndex].general[i*3+2] = b;
+            FRAMES[selectedFrameIndex].general[i * 3] = r;
+            FRAMES[selectedFrameIndex].general[i * 3 + 1] = g;
+            FRAMES[selectedFrameIndex].general[i * 3 + 2] = b;
         }
         updateLeds();
+    });
+
+    $("#reset-cc").click(() =>
+    {
+        $("#hue-shift").val(0);
+        $("#saturation").val(0);
+        $("#luminosity").val(0);
+        $("#hue-label").text("Hue Shift (0)");
+        $("#saturation-label").text("Saturation (0)");
+        $("#luminosity-label").text("Luminosity (0)");
+
+    });
+
+    $("#hue-shift").change(() =>
+    {
+        let val = $("#hue-shift").val();
+        $("#hue-label").text(`Hue Shift (${val > 0 ? "+" : ""}${val})`)
+    });
+
+    $("#saturation").change(() =>
+    {
+        let val = $("#saturation").val();
+        $("#saturation-label").text(`Saturation (${val > 0 ? "+" : ""}${val})`)
+    });
+
+    $("#luminosity").change(() =>
+    {
+        let val = $("#luminosity").val();
+        $("#luminosity-label").text(`Luminosity (${val > 0 ? "+" : ""}${val})`)
+    });
+
+    $("#apply-cc").click(() =>
+    {
+        let hVal = $("#hue-shift").val() / 360.0;
+        let sVal = $("#saturation").val() / 100.0;
+        let lVal = $("#luminosity").val() / 100.0;
+
+        // Reset sliders
+       /* $("#hue-shift").val(0);
+        $("#saturation").val(0);
+        $("#luminosity").val(0);*/
+
+
+        for (let i = 0; i < NUMLEDS_KEYBOARD; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].keyboard[i * 3];
+            let g = FRAMES[selectedFrameIndex].keyboard[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].keyboard[i * 3 + 2];
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].keyboard[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].keyboard[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].keyboard[i * 3 + 2] = newRGB[2];
+            }
+
+        }
+        for (let i = 0; i < NUMLEDS_STRIP; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].strip[i * 3];
+            let g = FRAMES[selectedFrameIndex].strip[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].strip[i * 3 + 2];
+
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].strip[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].strip[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].strip[i * 3 + 2] = newRGB[2];
+            }
+        }
+        for (let i = 0; i < NUMLEDS_MOUSE; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].mouse[i * 3];
+            let g = FRAMES[selectedFrameIndex].mouse[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].mouse[i * 3 + 2];
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].mouse[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].mouse[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].mouse[i * 3 + 2] = newRGB[2];
+            }
+        }
+        for (let i = 0; i < NUMLEDS_MOUSEPAD; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].mousepad[i * 3];
+            let g = FRAMES[selectedFrameIndex].mousepad[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].mousepad[i * 3 + 2];
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].mousepad[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].mousepad[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].mousepad[i * 3 + 2] = newRGB[2];
+            }
+        }
+        for (let i = 0; i < NUMLEDS_HEADSET; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].headset[i * 3];
+            let g = FRAMES[selectedFrameIndex].headset[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].headset[i * 3 + 2];
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].headset[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].headset[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].headset[i * 3 + 2] = newRGB[2];
+            }
+        }
+        for (let i = 0; i < NUMLEDS_KEYPAD; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].keypad[i * 3];
+            let g = FRAMES[selectedFrameIndex].keypad[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].keypad[i * 3 + 2];
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].keypad[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].keypad[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].keypad[i * 3 + 2] = newRGB[2];
+            }
+        }
+        for (let i = 0; i < NUMLEDS_GENERAL; i++)
+        {
+            let r = FRAMES[selectedFrameIndex].general[i * 3];
+            let g = FRAMES[selectedFrameIndex].general[i * 3 + 1];
+            let b = FRAMES[selectedFrameIndex].general[i * 3 + 2];
+            if (r > 0 || g > 0 || b > 0)
+            {
+                let newRGB = applyCC(r, g, b, hVal, sVal, lVal)
+
+                FRAMES[selectedFrameIndex].general[i * 3] = newRGB[0];
+                FRAMES[selectedFrameIndex].general[i * 3 + 1] = newRGB[1];
+                FRAMES[selectedFrameIndex].general[i * 3 + 2] = newRGB[2];
+            }
+        }
+        updateLeds();
+
     });
 
     $("#export").click(() =>
@@ -582,14 +769,16 @@ $(document).ready(() =>
         input.type = 'file';
         input.click();
 
-        input.onchange = function() {
+        input.onchange = function ()
+        {
             var reader = new FileReader();
-            reader.onload = function() {
-                importFrames( reader.result );
+            reader.onload = function ()
+            {
+                importFrames(reader.result);
             };
             let file = input.files[0];
             reader.readAsText(file);
-            $( '#project-name' ).val( file.name.split('.')[0] );
+            $('#project-name').val(file.name.split('.')[0]);
         };
     });
 
@@ -606,7 +795,7 @@ $(document).ready(() =>
     {
         generateLEDS();
 
-        let pattern = /^(\d+),(\d+)\r?\n(((((\d+,)+\d);?)+\r?\n)+)$/;
+        let pattern = /^(\d+),(\d+)\r?\n([,;\r\n\d]+)$/;
         let matches = text.match(pattern);
 
         if (matches == null)
@@ -614,7 +803,7 @@ $(document).ready(() =>
             alert("Failed to read animation file. Make sure the file has a supported format.");
             return;
         }
-        
+
         let formatVersion = matches[1];
         if (formatVersion != "2") 
         {
@@ -624,11 +813,12 @@ $(document).ready(() =>
         let numFrames = matches[2];
         let frameStrings = matches[3].split('\n');
         FRAMES = [];
-        
+
         let error = false;
 
         frameStrings.forEach(str =>
         {
+            if (error) return;
             if (str == "") return;
             var parts = str.split(";");
             if (parts.length != 7)
@@ -639,11 +829,11 @@ $(document).ready(() =>
             }
             var object = {};
 
-            for(let i = 0; i < parts.length; i++)
+            for (let i = 0; i < parts.length; i++)
             {
                 let device = "";
                 let ledCount = 0;
-                switch(i)
+                switch (i)
                 {
                     case 0:
                         device = "keyboard";
@@ -674,8 +864,8 @@ $(document).ready(() =>
                         ledCount = 5;
                         break;
                 }
-                let tempFrames = parts[i].replace(";","").split(',');
-                
+                let tempFrames = parts[i].replace(";", "").split(',');
+
                 tempFrames = tempFrames.map((p) => +p);
                 if (tempFrames.length != ledCount * 3)
                 {
@@ -696,7 +886,7 @@ $(document).ready(() =>
         selectedLEDIndex = 0;
         updateLeds();
         refreshFrameText();
-        
+
     }
 
     function importFramesLegacy(text)
@@ -969,13 +1159,15 @@ $(document).ready(() =>
         changed = true;
     });
 
-    $(document).keydown(function (e) {
+    $(document).keydown(function (e)
+    {
         // Get the pressed key code
         let key = e.which;
         //  When pressed with ctrl, runs other function
-        if ( e.ctrlKey ) key += 1000;
+        if (e.ctrlKey) key += 1000;
 
-        switch (key) {
+        switch (key)
+        {
             case 37: // left
                 prevLed();
                 break;
@@ -1003,11 +1195,11 @@ $(document).ready(() =>
             case 1067: // Ctrl + C
                 $("#copy-last").click();
                 break;
-            
+
             case 1037: // Ctrl + Left
                 $("#shift-left").click();
                 break;
-            
+
             case 1039: // Ctrl + Right
                 $("#shift-right").click();
                 break;
