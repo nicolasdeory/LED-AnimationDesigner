@@ -128,7 +128,7 @@ $(document).ready(() =>
     $("#setup").on('submit', function (e)
     {
         e.preventDefault();
-        if (!generated || !changed || confirm("Are you sure you want to create a new animations? Export your animations if you want to save your changes."))
+        if (!generated || !changed || confirm("Are you sure you want to create a new animation? Export your animations if you want to save your changes."))
             generateLEDS();
 
     });

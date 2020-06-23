@@ -58,6 +58,22 @@
 
         <label for="color">Color</label>
         <input class="jscolor" id="color" value="000000"/>
+
+        <p>Color Correction</p>
+        <label for="hue-shift">Hue Shift</label>
+        <div class="slidecontainer">
+            <input type="range" min="-180" max="180" value="0" class="slider" id="hue-shift">
+        </div>
+        <label for="saturation">Saturation</label>
+        <div class="slidecontainer">
+            <input type="range" min="0" max="100" value="50" class="slider" id="saturation">
+        </div>
+        <label for="luminosity">Luminosity</label>
+        <div class="slidecontainer">
+            <input type="range" min="0" max="100" value="50" class="slider" id="luminosity">
+        </div>
+        <button id="apply-cc">Apply CC</button>
+        <br><br>
         <div id="frame" class="info">Frame: 1 / 1</div>
         <button id="prev-frame" title="Arrow Down">Previous Frame</button>
         <button id="next-frame" title="Arrow Up">Next Frame</button>
