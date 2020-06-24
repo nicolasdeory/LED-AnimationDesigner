@@ -109,7 +109,7 @@
 
 /*  Start of navigation Code */
 .topnav {
-    background-color: darkgrey;
+    background-color: none;
     overflow: hidden;
     border-radius: 2px;
 }
