@@ -106,3 +106,25 @@
 .pre-defined-setup {
     margin-top: 5px;
 }
+
+/*  Start of navigation Code */
+.topnav {
+    background-color: darkgrey;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.topnav a{
+    float: right;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+/* End of Navagation Code */
