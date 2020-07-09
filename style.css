@@ -121,6 +121,11 @@
     padding: 14px 16px;
     font-size: 14px;
     text-decoration: none;
+    border: solid;
+    border-width: thin;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    border-color: slategrey;
 }
 
 .topnav a:hover {
@@ -128,7 +133,7 @@
     color: black;
   }
 
-/* End of Navagation Code */
+/* End of Navigation Code */
 
 /* The Modal (Code) */
 #myBtn {
