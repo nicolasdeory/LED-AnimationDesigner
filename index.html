@@ -15,11 +15,51 @@
         <script src="keypad-layout.js"></script>
         <script src="general-leds-layout.js"></script>
         <script src="app.js"></script>
+	    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
     <body>
-        <form id="setup">
+ <div class="topnav">
+            <a a href="https://discord.com/invite/KtTRPZt"><i class="fab fa-discord" style='font-size:20px;color: slategrey'></i></a>
+            <a href="https://github.com/nicolasdeory/leagueoflegends-led"><i class='fab fa-github' style='font-size:20px;color: slategrey'></i></a>    
+          <form id="setup">
             <button>Start</button>
         </form>
+	        <!-- Trigger/Open The Modal -->
+<button id="myBtn" class="fas fa-question"></button>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p><b>What are General-purpose LEDs?</b>
+        They are used for devices that don't fall into any of the other categories.
+            <br> For example, gaming chairs, PC cases or monitors.
+            <br> The main light will be used to set the main overall moodlight (e.g. used for things that can only show one color at a time).
+            <br> The four secondary lights will be used for auxiliary lighting effects (from left to right).
+            <br> <b>Be careful animating these LEDs.</b> Only make dynamic effects on special situations (10% of gameplay). <a href="https://developer.razer.com/works-with-chroma/chroma-link-guide/">More info here</a>
+            <p><b>Specification</b></p>
+            <p>
+                The first line is a number that indicates the file format version (current = 2), and the number of animation frames.
+                <br> Each of the following lines is an animation frame. The different frame data arrays are separated by a semicolon.
+            </p>
+            <p>
+                Each frame is composed of 7 different comma-separated color byte arrays, in this order:
+                <br> - Keyboard (should be of length 88 keys + 17 numpad = 105)
+                <br> - LED Strip (must be of length 170)
+                <br> - Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
+                <br> - Mousepad (must be of length 16 - left to right order)
+                <br> - Headset (must be of length 2 - First color is left side, second color is right side)
+                <br> - 2D Keypad (must be of length 5x4 - 2D array, row order starting in the top-left)
+                <br> - General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
+            </p>
+        </p>
+
+  </div>
+
+</div> 
+       </div>
         
         <div class="led-section-container">
             <p>LED Strip</p>
@@ -104,30 +144,6 @@
         <div class="final-section">
             <p>DMX Animation Code</p>
             <textarea style="user-select: all" readonly id="exported-anim"></textarea>
-        </div>
-        <div>
-            <p><b>What are General-purpose LEDs?</b></p>
-            <p>They are used for devices that don't fall into any of the other categories.
-                <br> For example, gaming chairs, PC cases or monitors.
-                <br> The main light will be used to set the main overall moodlight (e.g. used for things that can only show one color at a time).
-                <br> The four secondary lights will be used for auxiliary lighting effects (from left to right).
-                <br> <b>Be careful animating these LEDs.</b> Only make dynamic effects on special situations (10% of gameplay). <a href="https://developer.razer.com/works-with-chroma/chroma-link-guide/">More info here</a>
-            </p>
-            <p><b>Specification</b></p>
-            <p>
-                The first line is a number that indicates the file format version (current = 2), and the number of animation frames.
-                <br> Each of the following lines is an animation frame. The different frame data arrays are separated by a semicolon.
-            </p>
-            <p>
-                Each frame is composed of 7 different comma-separated color byte arrays, in this order:
-                <br> - Keyboard (should be of length 88 keys + 17 numpad = 105)
-                <br> - LED Strip (must be of length 170)
-                <br> - Mouse (LEDs in this order: Main Logo, Scrollwheel, 7x LEDs left side, 7x LEDs right side)
-                <br> - Mousepad (must be of length 16 - left to right order)
-                <br> - Headset (must be of length 2 - First color is left side, second color is right side)
-                <br> - 2D Keypad (must be of length 5x4 - 2D array, row order starting in the top-left)
-                <br> - General-purpose LEDs (LEDs in this order: Main Moodlight, Secondary LED 1,2,3,4)
-            </p>
         </div>
     </body>
 </html>
