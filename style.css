@@ -114,7 +114,7 @@
     border-radius: 2px;
 }
 
-.topnav a{
+.topnav > a{
     float: right;
     color: black;
     text-align: center;
